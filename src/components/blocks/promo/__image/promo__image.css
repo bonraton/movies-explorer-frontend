@@ -1,0 +1,6 @@
+.promo__image {
+    background-image: url('../../../../images/promo_logo.svg');
+    background-repeat: no-repeat;
+    width: 310px;
+    height: 304px;
+}
