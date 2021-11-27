@@ -1,0 +1,9 @@
+@import url('../../blocks/landing/__header/landing__header.css');
+@import url('../../blocks/landing/landing.css');
+@import url('../../blocks/landing/_promo/landing_promo.css');
+@import url('../../blocks/landing/_about-project/landing_about-project.css');
+@import url('../../blocks/landing/_techs/landing_techs.css');
+@import url('../../blocks/landing/_about-me/landing_about-me.css');
+@import url('../../blocks/landing/_portfolio/landing_portfolio.css');
+@import url('../../blocks/landing/__title/landing__title.css');
+@import url('../../blocks/landing/__title/_techs/landing__title_techs.css');
