@@ -1,0 +1,7 @@
+.portfolio__links {
+    margin: 50px 0 125px 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    flex-direction: column;
+}

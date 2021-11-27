@@ -1,0 +1,7 @@
+.landing_promo {
+    display: flex;
+    justify-content: space-between;
+    background: #073042;;
+    color: #fff;
+    padding: 75px 70px 25px 70px;
+}

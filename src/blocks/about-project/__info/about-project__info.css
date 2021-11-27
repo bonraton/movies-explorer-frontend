@@ -1,0 +1,5 @@
+.about-project__info {
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-between;
+}

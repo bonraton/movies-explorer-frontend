@@ -1,0 +1,8 @@
+.about-project__title {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    padding-bottom: 23px;
+    border-bottom: 1px solid black;
+}

@@ -1,0 +1,13 @@
+.portfolio__item-icon {
+    background: none;
+    border: none;
+    background-image: url('../../../images/navtab_icon.svg');
+    width: 29px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0;
+    cursor: pointer;
+    /* align-self: flex-end; */
+
+}
