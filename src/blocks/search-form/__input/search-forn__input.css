@@ -1,0 +1,9 @@
+.search-form__input {
+    border: 0;
+    background: none;
+    outline: none;
+    padding: 14px 0 14px 22px;
+    font-size: 13px;
+    line-height: 17px;
+    width: 80%;
+}

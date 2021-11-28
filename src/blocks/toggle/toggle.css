@@ -1,0 +1,7 @@
+.toggle {
+    position: relative;
+    display: flex;
+    align-items: top;
+    width: 30%;
+    margin: 42px auto 62px auto;
+}
