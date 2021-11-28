@@ -1,0 +1,11 @@
+.movies__more {
+    width: 320px;
+    display: flex;
+    justify-content: center;
+    padding: 11px 60px 9px 60px;
+    background: none;
+    border: 1px solid #E8E8E8;
+    color: black;
+    cursor: pointer;
+    margin: 50px auto 80px auto;
+}

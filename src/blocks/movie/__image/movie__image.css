@@ -1,0 +1,8 @@
+.movie__image {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
