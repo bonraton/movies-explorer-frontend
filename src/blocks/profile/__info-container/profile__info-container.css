@@ -1,0 +1,10 @@
+.profile__info-container {
+display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.profile__info-container:first-of-type {
+    border-bottom: solid 1px #E8E8E8;
+    margin: 123px 0 17px 0;
+}

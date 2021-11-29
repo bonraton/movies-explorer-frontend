@@ -1,0 +1,8 @@
+.profile__btn {
+    background: none;
+    border: none;
+    font-size: 13px;
+    line-height: 16px;
+    margin-bottom: 16px;
+    cursor: pointer;
+}

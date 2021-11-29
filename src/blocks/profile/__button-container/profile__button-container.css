@@ -1,0 +1,8 @@
+.profile__button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 40%;
+    margin: 220px auto 70px auto;
+
+}
