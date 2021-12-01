@@ -1,7 +1,12 @@
 .portfolio__item {
     display: flex;
     justify-content: space-between;
-    padding-top: 20px;
-    padding-bottom: 19px;
+    align-content: center;
+    padding: 20px 0 9px 0;
     border-bottom: 1px solid #E8E8E8;
+}
+
+.portfolio__item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }

@@ -1,0 +1,14 @@
+.navbar__link {
+    margin: 0;
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration: none;
+    color: black;
+    border: none;
+    align-self: center;
+}
+
+.navbar__link:first-child {
+    font-weight: 500;
+    margin-right: 20px;
+}

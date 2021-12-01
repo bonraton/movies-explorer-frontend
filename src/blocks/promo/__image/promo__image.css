@@ -1,6 +1,9 @@
 .promo__image {
     background-image: url('../../../images/promo_logo.svg');
     background-repeat: no-repeat;
-    width: 310px;
+    background-position: center;
+    object-fit: contain;
+    max-width: 310px;
     height: 304px;
+    display: flex;
 }

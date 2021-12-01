@@ -1,5 +1,6 @@
 import './Register.css';
 import Input from '../Input/Input';
+import { Link } from 'react-router-dom';
 
 export default function Register (props) {
     return (
@@ -22,7 +23,11 @@ export default function Register (props) {
             className="input__form_error"
             />
             <button className="auth-form__submit-btn">Зарегистрироваться</button>
-            <p className="auth-form__text">Уже зарегистрированы?<a className="auth-form__link" href="#"> Войти</a></p>
+            <p className="auth-form__text">Уже зарегистрированы?
+            <Link to="signin">
+            <a className="auth-form__link" href="#"> Войти</a>
+            </Link>
+            </p>
         </form>
     )
 }

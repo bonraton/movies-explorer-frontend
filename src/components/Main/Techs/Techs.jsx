@@ -2,7 +2,7 @@ import './Techs.css';
 
 export default function Techs () {
     return (
-        <div className="landing landing_techs">
+        <div className="techs">
             <h2 className="landing__header">
                 Технологии
             </h2>

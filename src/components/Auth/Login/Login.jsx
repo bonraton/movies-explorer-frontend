@@ -1,5 +1,6 @@
 import Input from "../Input/Input";
 import './Login.css';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   return (
@@ -15,7 +16,12 @@ export default function Login() {
         className="input__form_error"
       />
        <button className="auth-form__submit-btn">Войти</button>
-        <p className="auth-form__text">Еще не зарегистрированы?<a className="auth-form__link" href="#"> Зарегистрироваться</a></p>
+        <p className="auth-form__text">Еще не зарегистрированы?
+        <Link to="/signup">
+        <a className="auth-form__link" href="#"> Зарегистрироваться
+        </a>
+        </Link>
+        </p>
     </form>
   );
 }
