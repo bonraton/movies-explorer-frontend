@@ -4,3 +4,12 @@
     font-weight: 400;
     margin: 26px 0 99px 0;
 }
+
+@media screen and (max-width: 769px) {
+    .about-me__text {
+        font-size: 12px;
+        line-height: 18px;
+        max-width: 364px;
+        margin: 20px 0 87px 0;
+    }
+}

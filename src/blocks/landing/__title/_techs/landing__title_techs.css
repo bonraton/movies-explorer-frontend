@@ -2,3 +2,11 @@
     text-align: center;
     margin: 90px auto 0 auto;
 }
+
+@media screen and (max-width: 769px) {
+    .landing__title_techs {
+        margin: 80px auto 0 auto;
+        font-size: 50px;
+        line-height: 58px;
+    }
+}

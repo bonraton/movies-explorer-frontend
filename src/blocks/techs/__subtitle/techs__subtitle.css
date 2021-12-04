@@ -3,3 +3,11 @@
     max-width: 460px;
     text-align: center;
 }
+
+@media screen and (max-width: 769px) {
+    .techs__subtitle {
+        font-size: 12px;
+        line-height: 18px;
+        margin: 22px auto 83px auto;
+    }
+}

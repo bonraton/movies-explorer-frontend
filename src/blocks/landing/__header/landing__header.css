@@ -6,3 +6,11 @@
     line-height: 24px;
     margin: 0;
 }
+
+@media screen and (max-width: 769px) {
+    .landing__header {
+        font-size: 22px;
+        line-height: 27px;
+        padding-bottom: 23px;
+    }
+}

@@ -8,3 +8,11 @@
     line-height: 17px;
     border-radius: 10px;
 }
+
+@media screen and (max-width: 769px) {
+    .techs__item {
+        font-size: 12px;
+        line-height: 14px;
+        width: 84px;
+    }
+}

@@ -14,11 +14,11 @@ export default function AboutMe () {
             и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании 
             «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами </p>
             <nav>
-            <Link to="#" href="#" className="about-me__link"><span>Facebook</span></Link>
-            <Link to="#" href="#" className="about-me__link"><span>Github</span></Link>
+            <Link to="#" href="#" className="about-me__link">Facebook</Link>
+            <Link to="#" href="#" className="about-me__link">Github</Link>
             </nav>
             </div>
-            <img alt="imag" className="about-me__image" src={aboutMe}></img>
+            <img className="about-me__image" src={aboutMe} alt="student"></img>
             </div>
 
         </section>

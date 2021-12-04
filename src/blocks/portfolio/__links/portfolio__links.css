@@ -5,3 +5,9 @@
     padding: 0;
     flex-direction: column;
 }
+
+@media screen and (max-width: 769px) {
+    .portfolio__links {
+        margin: 25px 0 90px 0;
+    }
+}

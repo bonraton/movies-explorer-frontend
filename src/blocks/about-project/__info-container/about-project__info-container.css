@@ -1,3 +1,9 @@
 .about-project__info-container {
     max-width: 550px;
 }
+
+@media screen and (max-width: 769px) {
+    .about-project__info-container {
+        max-width: 319px;
+    }
+}

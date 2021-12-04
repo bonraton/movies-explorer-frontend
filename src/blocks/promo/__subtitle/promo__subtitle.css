@@ -6,3 +6,10 @@
   font-weight: normal;
   opacity: 0.5;
 }
+
+@media screen and (max-width: 769px) {
+  .promo__subtitle {
+    margin: 0 auto;
+    max-width: 260px;
+  }
+}

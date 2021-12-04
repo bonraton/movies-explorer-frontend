@@ -1,6 +1,17 @@
 .about-me__image {
-    width: 277px;
+    background-image: url('../../../images/about-me.png');
+    max-width: 255px;
     height: 327px;
+    object-fit: contain;
     background-size: cover;
     background-repeat: no-repeat;
+    resize: none;
+}
+
+@media screen and (max-width: 769px) {
+    .about-me__image {
+        width: 255px;
+        height: 307px;
+        background-size: contain;
+    }
 }

@@ -10,3 +10,10 @@
   line-height: 16px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 769px) {
+  .promo__link {
+    margin: 92px auto 10px auto;
+  }
+  
+}
