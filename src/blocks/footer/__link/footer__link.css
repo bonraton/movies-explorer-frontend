@@ -5,3 +5,11 @@
     line-height: 16px;
     margin-left: 20px;
 }
+
+@media screen and (max-width: 513px) {
+    .footer__link {
+        margin: 0 auto 12px auto;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

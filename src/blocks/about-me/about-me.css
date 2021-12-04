@@ -1,10 +1,15 @@
 .about-me {
-    margin: 110px 70px 100px 70px;
+  margin: 110px 70px 100px 70px;
 }
 
 @media screen and (max-width: 769px) {
-    .about-me {
-        margin: 90px 50px;
-    }
-    
+  .about-me {
+    margin: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .about-me {
+    margin: 70px 14px;
+  }
 }

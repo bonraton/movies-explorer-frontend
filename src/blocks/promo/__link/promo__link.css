@@ -15,5 +15,10 @@
   .promo__link {
     margin: 92px auto 10px auto;
   }
-  
+}
+
+@media screen and (max-width: 513px) {
+  .promo__link {
+    margin: 80px auto 0 auto;
+  }
 }

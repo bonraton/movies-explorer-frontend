@@ -5,3 +5,10 @@
     font-weight: 400;
     color: #A0A0A0;
 }
+
+@media screen and (max-width: 513px) {
+    .portfolio__header {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

@@ -4,3 +4,10 @@
     line-height: 50px;
     margin: 0;
 }
+
+@media screen and (max-width: 513px) {
+    .portfolio__item-title {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}

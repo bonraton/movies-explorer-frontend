@@ -1,15 +1,24 @@
 .about-me__text {
-    font-size: 14px;
-    line-height: 22px;
-    font-weight: 400;
-    margin: 26px 0 99px 0;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  margin: 26px 0 99px 0;
 }
 
 @media screen and (max-width: 769px) {
-    .about-me__text {
-        font-size: 12px;
-        line-height: 18px;
-        max-width: 364px;
-        margin: 20px 0 87px 0;
-    }
+  .about-me__text {
+    font-size: 12px;
+    line-height: 18px;
+    max-width: 364px;
+    margin: 20px 0 87px 0;
+  }
+}
+
+@media screen and (max-width: 513px) {
+  .about-me__text {
+    font-size: 11px;
+    line-height: 16px;
+    max-width: 292px;
+    margin: 0 0 40px 0;
+  }
 }

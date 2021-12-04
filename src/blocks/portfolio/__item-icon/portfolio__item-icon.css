@@ -1,12 +1,18 @@
 .portfolio__item-icon {
-    background: none;
-    border: none;
-    background-image: url('../../../images/portfolio_icon.svg');
-    width: 29px;
-    height: 60px;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-    /* align-self: flex-end; */
+  background: none;
+  border: none;
+  background-image: url("../../../images/portfolio_icon.svg");
+  width: 29px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
 
+@media screen and (max-width: 513px) {
+  .portfolio__item-icon {
+    background-size: contain;
+    width: 12px;
+    height: 28px;
+  }
 }

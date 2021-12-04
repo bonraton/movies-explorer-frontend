@@ -12,3 +12,9 @@
         line-height: 16px;
     }
 }
+
+@media screen and (max-width: 513px) { 
+    .navbar {
+        font-size: 10px;
+    }
+}
