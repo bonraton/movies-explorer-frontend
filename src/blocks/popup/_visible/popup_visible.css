@@ -1,0 +1,6 @@
+.popup_visible {
+    visibility: visible;
+    display: flex;
+    width: 520px;
+    opacity: 1;
+}

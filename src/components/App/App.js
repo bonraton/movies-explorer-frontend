@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom';
 import Main from '../Main/Main';
@@ -12,10 +12,21 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Navigation from '../Navigation/Navigation';
-
+import Popup from '../Popup/Popup';
 
 
 function App() {
+
+const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false)
+
+function openHeaderMenu () {
+  setIsPopupMenuOpen(!isPopupMenuOpen)
+}
+
+function openPopup () {
+  setIsPopupMenuOpen(true)
+}
+
   return (
     // 1. PROMO 
     <div className="page">
@@ -32,20 +43,35 @@ function App() {
       </Route>
       {/* 2. MOVIESCARDLIST  */}
       <Route path="/movies">
+      <Popup 
+              onClose={openHeaderMenu}
+              isOpen={isPopupMenuOpen}
+        />
       <Header 
       btnValue="Аккаунт"
       movies="Фильмы"
       savedMovies="Сохраненные фильмы"
+      btnClass="header__btn_auth"
+      navbarClass="navbar_auth"
+      onOpen={openPopup}
       />
       <SearchForm />
       <MoviesCardList />
       <Footer /> 
       </Route>
+      {/* 3. SavedMovies */}
       <Route path="/saved-movies">
+      <Popup 
+              onClose={openHeaderMenu}
+              isOpen={isPopupMenuOpen}
+        />
       <Header 
       btnValue="Аккаунт"
       movies="Фильмы"
       savedMovies="Сохраненные фильмы"
+      btnClass="header__btn_auth"
+      navbarClass="navbar_auth"
+      onOpen={openPopup}
       />
       <SavedMovies />
       <Footer />

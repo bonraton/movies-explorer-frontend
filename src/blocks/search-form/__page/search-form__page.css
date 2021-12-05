@@ -1,0 +1,9 @@
+.search-form__page {
+  margin: 0 70px;
+}
+
+@media screen and (max-width: 769px) {
+  .search-form__page {
+    margin: 0 30px;
+  }
+}

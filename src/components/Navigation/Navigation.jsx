@@ -11,10 +11,8 @@ export default function Navigation(props) {
         {props.savedMovies}
       </Link>
       <Link to="/profile" className={`navbar__btn ${props.navBarBtnClass}`}>
-        {/* <button className={`navbar__btn ${props.navBarBtnClass}`} href="#"> */}
             {props.btnValue}
           <svg className={`navbar__btn-icon ${props.navbarBtnIconClass}`}></svg>
-        {/* </button> */}
         </Link>
     </nav>
   );

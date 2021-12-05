@@ -1,10 +1,10 @@
-import './MoviesCardList.css';
-import MoviesCard from '../MoviesCard/MoviesCard'
+import "./MoviesCardList.css";
+import MoviesCard from "../MoviesCard/MoviesCard";
 
 export default function MoviesCardList() {
   return (
-    <section className="landing">
-      <div className="movies">
+    <section className="movies">
+      <div className="movies__container">
         {/* Тестовые картинки, в последующем будем брать из из API */}
         <MoviesCard />
         <MoviesCard />

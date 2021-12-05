@@ -1,0 +1,14 @@
+.movies__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 270px));
+  gap: 32px 20px;
+  margin: 70 auto 0 auto;
+  justify-content: center;
+}
+
+@media screen and (max-width: 769px) {
+  .movies__container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 339px));
+    gap: 36px 30px;
+  }
+}

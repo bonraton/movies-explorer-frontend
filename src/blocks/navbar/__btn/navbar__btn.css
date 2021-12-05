@@ -15,3 +15,9 @@
     text-align: center;
     cursor: pointer;
 }
+
+@media screen and (max-width: 769px) {
+    .navbar__btn {
+        /* margin: 0 auto 90px auto; */
+    }
+}

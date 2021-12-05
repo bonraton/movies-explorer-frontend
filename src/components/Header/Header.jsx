@@ -9,6 +9,7 @@ export default function Header (props) {
             <svg className="logo"></svg>
             </Link>
             <h2 className="header__title">{props.greetings}</h2>
+            <button onClick={props.onOpen} type="button" className={`header__btn ${props.btnClass}`}></button>
             <Navigation 
             navbarClass={props.navbarClass}
             movies={props.movies}

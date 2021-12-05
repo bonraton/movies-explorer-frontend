@@ -1,15 +1,15 @@
 .footer__link {
-    text-decoration: none;
-    color: black;
-    font-size: 13px;
-    line-height: 16px;
-    margin-left: 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 13px;
+  line-height: 16px;
+  margin-left: 20px;
 }
 
 @media screen and (max-width: 513px) {
-    .footer__link {
-        margin: 0 auto 12px auto;
-        font-size: 12px;
-        line-height: 15px;
-    }
+  .footer__link {
+    margin: 0 auto 12px auto;
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

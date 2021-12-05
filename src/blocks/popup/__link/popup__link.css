@@ -1,0 +1,8 @@
+.popup__link {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-decoration: none;
+    color: black;
+    margin: 0 0 28px 0;
+}
