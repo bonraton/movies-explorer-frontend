@@ -15,13 +15,14 @@ export default function Login() {
         type="password"
         className="input__form_error"
       />
+      <div className="auth-form__btn-container">
        <button className="auth-form__submit-btn">Войти</button>
         <p className="auth-form__text">Еще не зарегистрированы?
-        <Link to="/signup">
-        <a className="auth-form__link" href="#"> Зарегистрироваться
-        </a>
+        <Link to="/signup" className="auth-form__link">
+          Зарегистрироваться
         </Link>
         </p>
+        </div>
     </form>
   );
 }

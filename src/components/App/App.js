@@ -80,27 +80,32 @@ function openPopup () {
       <Route path="/signin">
       <Header
       headerClassName="header_auth" 
-      greetings="Добро пожаловать!"
+      greetings="Рады видеть!"
       navbarClass="navbar_auth"/>
-      
       <Login />
       </Route>
       {/* {/* 5.REGISTER */}
       <Route path="/signup">
       <Header 
       headerClassName="header_auth"
-      greetings="Рады видеть!"
+      greetings="Добро пожаловать!"
       navbarClass="navbar_auth"/>
       <Register />
       </Route>
 
       {/* 6.PROFILE  */}
       <Route path="/profile">
+      <Popup 
+              onClose={openHeaderMenu}
+              isOpen={isPopupMenuOpen}
+        />
       <Header
-      navbarClass="navbar_auth"
       movies="Фильмы"
       savedMovies="Сохраненные фильмы"
-      btnValue="Аккаунт"/> 
+      navbarClass="navbar_auth"
+      btnClass="header__btn_auth"
+      btnValue="Аккаунт"
+      onOpen={openPopup}/> 
       <Profile />
       </Route> 
       

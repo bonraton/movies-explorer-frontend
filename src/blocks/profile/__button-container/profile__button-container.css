@@ -4,5 +4,10 @@
     justify-content: center;
     max-width: 40%;
     margin: 220px auto 70px auto;
+}
 
+@media screen and (max-width: 769px) {
+ .profile__button-container {
+     margin: 200px auto auto auto;
+ }   
 }

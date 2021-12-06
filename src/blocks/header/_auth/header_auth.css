@@ -6,3 +6,9 @@
     padding: 0;
     margin: 70px auto 40px auto;
 }
+
+@media screen and (max-width: 769px) {
+    .header_auth {
+        margin: 232px auto 40px auto;
+    }
+}

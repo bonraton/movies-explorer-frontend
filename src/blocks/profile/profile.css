@@ -2,3 +2,9 @@
     max-width: 410px;
     margin: 0 auto;
 }
+
+@media screen and (max-width: 769px) {
+    .profile {
+        margin: 230px auto auto auto;
+    }
+}
