@@ -12,3 +12,11 @@
         margin: 0 auto;
     }
 }
+
+@media screen and (max-width: 513px) {
+    .auth-form__text {
+        margin: 14px auto 0 auto;
+        font-size: 12px;
+        line-height: 14px;
+    }
+}

@@ -5,3 +5,11 @@
     font-weight: 400;
     text-decoration: none;
 }
+
+@media screen and (max-width: 769px) {
+    .auth-form__link {
+        font-size: 12px;
+        line-height: 14px;
+        margin-left: 5px;
+    }
+}

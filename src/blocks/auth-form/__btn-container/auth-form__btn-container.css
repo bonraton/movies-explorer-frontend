@@ -6,3 +6,11 @@
     width: 100%;
   }
 
+  @media screen and (max-width: 513px) {
+    .auth-form__btn-container {
+      padding-bottom: 30px;
+      top: 420px;
+      width: 100%;
+    }
+  }
+

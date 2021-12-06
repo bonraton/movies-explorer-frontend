@@ -11,3 +11,10 @@
      margin: 200px auto auto auto;
  }   
 }
+
+@media screen and (max-width: 513px) {
+    .profile__button-container {
+        margin: 359px auto 40px auto;
+        max-width: 80%;
+    }
+}

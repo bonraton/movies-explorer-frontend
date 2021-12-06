@@ -19,7 +19,7 @@ export default function Login() {
        <button className="auth-form__submit-btn">Войти</button>
         <p className="auth-form__text">Еще не зарегистрированы?
         <Link to="/signup" className="auth-form__link">
-          Зарегистрироваться
+             Регистрация
         </Link>
         </p>
         </div>

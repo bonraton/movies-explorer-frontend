@@ -23,7 +23,7 @@ export default function Register (props) {
             className="input__form_error"
             />
             <div className="auth-form__btn-container">
-            <button className="auth-form__submit-btn">Зарегистрироваться</button>
+            <button className="auth-form__submit-btn">Регистрация</button>
             <p className="auth-form__text">Уже зарегистрированы?
             <Link to="signin" className="auth-form__link"> Войти</Link>
             </p>
