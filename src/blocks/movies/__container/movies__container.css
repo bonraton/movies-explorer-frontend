@@ -12,3 +12,9 @@
     gap: 36px 30px;
   }
 }
+
+@media screen and (max-width: 513px) {
+    .movies__container {
+      gap: 20 0;
+    }
+}

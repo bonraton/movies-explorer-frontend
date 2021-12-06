@@ -6,3 +6,9 @@
     color: black;
     margin: 0 0 28px 0;
 }
+
+@media screen and (max-width: 613px) {
+    .popup__link {
+        margin: 0 0 24px 0;
+    }
+}

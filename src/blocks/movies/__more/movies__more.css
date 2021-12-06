@@ -9,3 +9,9 @@
   cursor: pointer;
   margin: 80px auto 0 auto;
 }
+
+@media screen and (max-width: 513px) {
+  .movies__more {
+    width: 100%;
+  }
+}
