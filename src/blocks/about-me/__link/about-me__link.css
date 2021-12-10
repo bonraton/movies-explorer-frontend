@@ -4,4 +4,9 @@
     line-height: 17px;
     text-decoration: none;
     color: black;
+    transition: .4s;
+}
+
+.about-me__link:hover {
+    opacity: .7;
 }

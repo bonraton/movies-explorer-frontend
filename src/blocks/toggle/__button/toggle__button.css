@@ -4,7 +4,7 @@
     height: 0;
 }
 
-.toggle__button:checked + .toggle__slider::before {
+.toggle__button:checked+.toggle__slider::before {
     background-color: #2BE080;
-    transform: translateX(15px);
+    transform: translateX(14px);
 }

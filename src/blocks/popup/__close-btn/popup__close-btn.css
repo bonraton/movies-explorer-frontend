@@ -10,6 +10,11 @@
     top: 22px;
     right: 22px;
     z-index: 1;
+    transition: .4s;
+}
+
+.popup__close-btn:hover {
+    opacity: .7;
 }
 
 @media screen and(max-width: 331px) {

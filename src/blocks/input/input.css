@@ -3,11 +3,12 @@
     flex-direction: column;
     max-width: 396px;
     justify-content: center;
-    margin: 20px auto 0 auto;
+    align-items: center;
+    align-items: stretch;
 }
 
 @media screen and (max-width: 769px) {
     .input {
-        margin: 10px auto 0 auto;
+        margin: 10px 0 0 0;
     }
 }

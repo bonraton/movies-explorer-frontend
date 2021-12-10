@@ -10,4 +10,9 @@
     cursor: pointer;
     display: none;
     padding: 0;
+    transition: .4s
+}
+
+.header__btn:hover {
+    opacity: .7;
 }

@@ -8,13 +8,11 @@
     height: 16px;
     width: 16px;
     margin: 2px 2px 2px 2px;
-    background-color: #EBEBEB;
+    background-color: #ebebeb;
     border-radius: 50%;
 }
 
-
-  
-  .toggle__slider:before {
+.toggle__slider:before {
     position: relative;
     display: inline-block;
     content: "";
@@ -24,4 +22,4 @@
     border: 1px solid white;
     border-radius: 100%;
     transition: .4s;
-  }
+}

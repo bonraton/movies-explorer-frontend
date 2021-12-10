@@ -7,6 +7,18 @@
     font-size: 14px;
     line-height: 17px;
     border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    transition: .4s;
+}
+
+.techs__item:active {
+    background-color: gray;
+}
+
+.techs__item:hover {
+    opacity: .7;
+    transform: scale(120%);
 }
 
 @media screen and (max-width: 769px) {

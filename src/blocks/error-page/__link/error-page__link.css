@@ -3,4 +3,18 @@
     line-height: 17px;
     text-decoration: none;
     margin-top: 184px;
+    transition: .4s;
+    color: #3456F3;
+}
+
+.error-page__link:hover {
+    opacity: .7;
+}
+
+@media screen and (max-width: 513px) {
+    .error-page__link {
+        font-size: 12px;
+        line-height: 14px;
+        margin-top: 284px;
+    }
 }

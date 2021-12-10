@@ -1,4 +1,6 @@
 .profile__btn_logout {
     color: #FF3055;
     margin-bottom: 0;
+    text-decoration: none;
+    text-align: center;
 }

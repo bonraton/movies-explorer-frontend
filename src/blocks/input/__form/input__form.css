@@ -1,7 +1,12 @@
 .input__form {
     background-color: #F9F9F9;
-    padding: 15px;
+    padding: 15px 10px 15px 10px;
     border: none;
     border-radius: 8px;
     outline: none;
+    min-width: 100%;
+}
+
+.input__form::placeholder {
+    padding-left: 10px;
 }

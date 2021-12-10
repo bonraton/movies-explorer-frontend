@@ -1,15 +1,13 @@
 .toggle {
-  position: relative;
-  display: flex;
-  align-items: top;
-  justify-content: center;
-  padding: 42px 0 62px 0;
-  border-bottom: #E8E8E8 solid 1px;
+    position: relative;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    padding: 42px 0 62px 0;
 }
 
-
-@media  screen and (max-width: 769px) {
-  .toggle {
-    padding: 0 0 51px 0;
-  }
+@media screen and (max-width: 769px) {
+    .toggle {
+        padding: 0 0 51px 0;
+    }
 }

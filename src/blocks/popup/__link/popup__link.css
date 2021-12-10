@@ -5,6 +5,11 @@
     text-decoration: none;
     color: black;
     margin: 0 0 28px 0;
+    transition: .4s;
+}
+
+.popup__link:hover {
+    opacity: 7;
 }
 
 @media screen and (max-width: 613px) {

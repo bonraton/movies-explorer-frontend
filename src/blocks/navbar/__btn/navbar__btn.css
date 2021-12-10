@@ -14,6 +14,12 @@
     text-decoration: none;
     text-align: center;
     cursor: pointer;
+    transition: .4s;
+}
+
+.navbar__btn:hover {
+    opacity: .7;
+    transform: scale(110%);
 }
 
 @media screen and (max-width: 769px) {

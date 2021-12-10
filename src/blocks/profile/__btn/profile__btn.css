@@ -5,4 +5,9 @@
     line-height: 16px;
     margin-bottom: 16px;
     cursor: pointer;
+    transition: .4s;
+}
+
+.profile__btn:hover {
+    opacity: .7;
 }

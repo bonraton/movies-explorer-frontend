@@ -7,6 +7,12 @@
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+  transition: .4s;
+}
+
+.portfolio__item-icon:hover {
+  opacity: .7;
+  transform: scale(120%);
 }
 
 @media screen and (max-width: 513px) {

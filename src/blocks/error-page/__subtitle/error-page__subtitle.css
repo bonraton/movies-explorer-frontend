@@ -3,3 +3,10 @@
     line-height: 19px;
     margin: 5px auto 0 auto;
 }
+
+@media screen and (max-width: 513px) {
+    .error-page__subtitle {
+        font-size: 12px;
+        line-height: 14px;
+    }
+}

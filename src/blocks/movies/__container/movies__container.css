@@ -14,7 +14,7 @@
 }
 
 @media screen and (max-width: 513px) {
-    .movies__container {
-      gap: 20 0;
-    }
+  .movies__container {
+    gap: 20 0;
+  }
 }

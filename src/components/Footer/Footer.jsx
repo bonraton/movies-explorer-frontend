@@ -1,4 +1,5 @@
 import "./Footer.css";
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -9,15 +10,15 @@ export default function Footer() {
       <div className="footer__links-container">
         <span className="footer__copyright">© 2020</span>
         <nav className="footer__links">
-          <a href="#" className="footer__link">
+          <Link to={{ pathname: "https://practicum.yandex.ru/" }} target="_blank" className="footer__link">
             Яндекс.Практикум
-          </a>
-          <a href="#" className="footer__link">
+          </Link>
+          <Link to={{ pathname: "https://github.com/bonraton" }} target="_blank" className="footer__link">
             Github
-          </a>
-          <a href="#" className="footer__link">
+          </Link>
+          <Link to={{ pathname: "https://www.facebook.com/zarechny.oleg/" }} target="_blank" className="footer__link">
             Facebook
-          </a>
+          </Link>
         </nav>
       </div>
     </footer>

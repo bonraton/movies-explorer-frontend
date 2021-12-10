@@ -5,8 +5,8 @@
 }
 
 @media screen and (max-width: 513px) {
- .about-project__info {
-     margin-top: 0;
-     flex-direction: column;
- }   
+    .about-project__info {
+        margin-top: 0;
+        flex-direction: column;
+    }
 }

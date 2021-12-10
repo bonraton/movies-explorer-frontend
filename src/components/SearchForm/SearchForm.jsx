@@ -1,6 +1,6 @@
 import "./SearchForm.css";
 
-export default function SearchForm() {
+export default function SearchForm(props) {
   return (
     <section className="search-form__page">
       <form
@@ -23,9 +23,9 @@ export default function SearchForm() {
         </div>
       </form>
       <div className="toggle">
-        <label className="toggle__switch" for="toggle-button">
+        <label className="toggle__switch" htmlFor={props.id}>
           <input
-            id="toggle-button"
+            id={props.id}
             type="checkbox"
             className="toggle__button"
           ></input>
