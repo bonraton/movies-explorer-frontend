@@ -3,7 +3,7 @@ function getJwtFromLocal() {
 }
 
 // const BASE_URL = 'http://localhost:4000'
-const BASE_URL = 'https://MovieKirillNaruls.nomoredomains.rocks';
+const BASE_URL = 'https://api.movies.diploma.nomoredomains.rocks';
 
 const getResponseData = (result) => {
     if (result.ok) {

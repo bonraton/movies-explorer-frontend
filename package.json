@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* bonraton@84.201.185.226:/home/bonraton/movies-explorer-frontend"
+    "deploy": "npm run build && scp -r ./build/* bonraton@84.201.187.210:/home/bonraton/movies-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [
