@@ -1,0 +1,23 @@
+.techs__grid {
+  padding: 0;
+  display: grid;
+  list-style: none;
+  grid-template-columns: repeat(7, minmax(84px, 90px));
+  gap: 10px;
+  max-width: 690px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 769px) {
+  .techs__grid {
+    grid-template-columns: repeat(auto-fit, 84px);
+    padding: 0 10px;
+  }
+}
+
+@media screen and (max-width: 513px) {
+  .techs__grid {
+    align-items: center;
+    justify-content: center;
+  }
+}

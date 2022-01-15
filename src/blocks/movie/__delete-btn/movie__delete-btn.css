@@ -1,0 +1,13 @@
+.movie__delete-btn {
+    background: none;
+    background-repeat: no-repeat;
+    border: none;
+    background-size: contain;
+    width: 12px;
+    height: 12px;
+    align-self: flex-end;
+    margin-right: 14px;
+    padding: 0;
+    cursor: pointer;
+    background-image: url('../../../images/popup__close-btn.svg');
+}

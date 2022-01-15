@@ -1,0 +1,23 @@
+.navbar__link {
+    margin: 0;
+    text-decoration: none;
+    color: black;
+    border: none;
+    align-self: center;
+    font-weight: 400;
+    transition: .4s;
+}
+
+.navbar__link:hover {
+    opacity: .7;
+}
+
+.navbar__link:first-child {
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 513px) {
+    .navbar__link:first-child {
+        margin-right: 4px;
+    }
+}

@@ -1,0 +1,29 @@
+.navbar__btn {
+    width: 100px;
+    height: 32px;
+    padding: 0;
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: none;
+    border-radius: 40px;
+    box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+    background: none;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.navbar__btn:hover {
+    opacity: .7;
+    transform: scale(110%);
+}
+
+@media screen and (max-width: 769px) {
+    .navbar__btn {
+        margin: 0 auto;
+    }
+}

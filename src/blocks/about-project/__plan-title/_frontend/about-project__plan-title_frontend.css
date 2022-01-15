@@ -1,0 +1,10 @@
+.about-project__plan-title_frontend {
+    background: #F2F2F2;
+}
+
+@media screen and (max-width: 513px) {
+    .about-project__plan-title_frontend {
+        font-size: 11px;
+        line-height: 13px;
+    }
+}

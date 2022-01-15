@@ -1,0 +1,11 @@
+.search-form__button-container {
+    margin: 6px 6px 6px 0;
+    border-radius: 48px;
+    background-color: #3456F3;
+    transition: .4s;
+}
+
+.search-form__button-container:hover {
+    opacity: .7;
+    transform: scale(105%);
+}

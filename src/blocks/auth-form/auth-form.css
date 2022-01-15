@@ -1,0 +1,17 @@
+.auth-form {
+    margin: 20px auto 70px auto;
+    max-width: 396px;
+    position: relative;
+}
+
+@media screen and (max-width: 769px) {
+    .auth-form {
+        margin: 40px auto 0 auto;
+    }
+}
+
+@media screen and (max-width: 513px) {
+    .auth-form {
+        max-width: 80%;
+    }
+}

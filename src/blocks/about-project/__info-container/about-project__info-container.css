@@ -1,0 +1,19 @@
+.about-project__info-container {
+  max-width: 550px;
+}
+
+@media screen and (max-width: 769px) {
+  .about-project__info-container {
+    max-width: 319px;
+  }
+}
+
+@media screen and (max-width: 513px) {
+  .about-project__info-container {
+    margin-top: 60px;
+  }
+
+  .about-project__info-container:first-child {
+    margin-top: 56px;
+  }
+}

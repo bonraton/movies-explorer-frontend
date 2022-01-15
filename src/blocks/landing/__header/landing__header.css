@@ -1,0 +1,25 @@
+.landing__header {
+    padding-bottom: 26px;
+    border-bottom: 1px solid black;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0;
+}
+
+@media screen and (max-width: 769px) {
+    .landing__header {
+        font-size: 22px;
+        line-height: 27px;
+        padding-bottom: 23px;
+    }
+}
+
+
+@media screen and (max-width: 513px) {
+    .landing__header {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 28px;
+    }
+}

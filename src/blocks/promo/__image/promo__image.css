@@ -1,0 +1,17 @@
+.promo__image {
+    background-image: url('../../../images/promo_logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    max-width: 310px;
+    height: 304px;
+    display: flex;
+}
+
+@media screen and (max-width: 513px) {
+    .promo__image {
+        max-width: 210px;
+        height: 206px;
+    }
+    
+}

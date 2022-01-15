@@ -1,0 +1,15 @@
+.about-project__plan-subtitle {
+  margin: 14px 0 0 0;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 513px) {
+  .about-project__plan-subtitle {
+    font-size: 11px;
+    line-height: 13px;
+    margin: 10px 0 0 0;
+  }
+}

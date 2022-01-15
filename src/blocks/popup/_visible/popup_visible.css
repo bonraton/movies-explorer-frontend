@@ -1,0 +1,12 @@
+.popup_visible {
+    visibility: visible;
+    display: flex;
+    width: 520px;
+    opacity: 1;
+}
+
+@media screen and (max-width: 641px) {
+    .popup_visible {
+        width: 100%;
+    }
+}

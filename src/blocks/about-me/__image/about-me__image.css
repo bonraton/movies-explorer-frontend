@@ -1,0 +1,26 @@
+.about-me__image {
+    max-width: 355px;
+    height: auto;
+    object-fit: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 769px) {
+    .about-me__image {
+        width: 255px;
+        height: 307px;
+        background-size: contain;
+    }
+}
+
+@media screen and (max-width: 513px) {
+    .about-me__image {
+        max-width: 292px;
+        width: 292px;
+        height: 352px;
+        order: -1;
+        background-size: cover;
+    }
+}

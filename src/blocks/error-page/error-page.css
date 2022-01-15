@@ -1,0 +1,21 @@
+.error-page {
+    max-width: 400px;
+    margin: 246px auto 60px auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+@media screen and (max-width: 769px) {
+    .error-page {
+        margin-bottom: 246px;
+    }
+}
+
+@media screen and (max-width: 513px) {
+    .error-page {
+        max-width: 300px;
+        margin: 329px auto 30px auto;
+    }
+}

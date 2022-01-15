@@ -1,0 +1,12 @@
+.about-project__plan-title_backend {
+    background-color: #2BE080;
+}
+
+@media screen and (max-width: 513px) {
+    .about-project__plan-title_backend {
+        font-size: 11px;
+        line-height: 13px;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}

@@ -1,0 +1,13 @@
+.about-me__container {
+    margin: 66px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 513px) {
+    .about-me__container {
+        flex-direction: column;
+        margin: 60px auto 0 auto;
+        align-items: center;
+    }
+}

@@ -1,0 +1,18 @@
+.footer {
+  padding: 79px 70px 20px 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 769px) {
+  .footer {
+    padding: 79px 30px 20px 30px;
+  }
+}
+
+@media screen and (max-width: 513px) {
+  .footer {
+    padding: 79px 10px 10px 10px;
+    flex-direction: column;
+  }
+}

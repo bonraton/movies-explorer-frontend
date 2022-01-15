@@ -1,0 +1,10 @@
+.navbar__link_selected {
+    font-weight: 500;
+}
+
+@media screen and (max-width: 513px) {
+    .navbar__link_selected {
+        font-weight: 400;
+        text-decoration: underline;
+    }   
+}

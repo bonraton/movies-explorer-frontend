@@ -1,0 +1,13 @@
+@import url('../../../blocks/about-project/about-project.css');
+@import url('../../../blocks/about-project/__info/about-project__info.css');
+@import url('../../../blocks/about-project/__info-container/about-project__info-container.css');
+@import url('../../../blocks/about-project/__info-title/about-project__info-title.css');
+@import url('../../../blocks/about-project/__info-text/about-project__info-text.css');
+@import url('../../../blocks/about-project/__plan/about-project__plan.css');
+@import url('../../../blocks/about-project/__plan-container/about-project__plan-container.css');
+@import url('../../../blocks/about-project/__plan-container/_backend/about-project__plan-container_backend.css');
+@import url('../../../blocks/about-project/__plan-container/_frontend/about-project__plan-container.css');
+@import url('../../../blocks/about-project/__plan-title/about-project__plan-title.css');
+@import url('../../../blocks/about-project/__plan-title/_backend/about-project__plan-title_backend.css');
+@import url('../../../blocks/about-project/__plan-title/_frontend/about-project__plan-title_frontend.css');
+@import url('../../../blocks/about-project/__plan-subtitle/about-project__plan-subtitle.css');

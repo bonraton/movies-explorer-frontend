@@ -1,0 +1,9 @@
+.about-project__plan-container_backend {
+  flex-basis: 20%;
+}
+
+@media screen and (max-width: 513px) {
+  .about-project__plan-container_backend {
+    flex-basis: 40%;
+  }
+}

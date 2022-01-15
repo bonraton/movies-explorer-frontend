@@ -1,0 +1,18 @@
+.header__btn {
+    background: none;
+    background-image: url('../../../images/header__btn.svg');
+    width: 48px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: none;
+    padding: 0;
+    transition: .4s
+}
+
+.header__btn:hover {
+    opacity: .7;
+}

@@ -1,0 +1,11 @@
+.navbar__btn-icon { 
+    padding: 7px;
+    height: 11px;
+    width: 11px;
+    background-color: #F9F9F9;
+    border-radius: 50%;
+    background-position: center;
+    padding-right: 10px;
+    background-image: url('../../../images/navtab_icon.svg');
+    background-repeat: no-repeat;
+}

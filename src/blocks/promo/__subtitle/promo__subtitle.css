@@ -1,0 +1,15 @@
+.promo__subtitle {
+  margin: 36px 0 0 0;
+  max-width: 310px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: normal;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 769px) {
+  .promo__subtitle {
+    margin: 0 auto;
+    max-width: 260px;
+  }
+}

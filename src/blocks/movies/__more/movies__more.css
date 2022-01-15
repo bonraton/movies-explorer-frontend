@@ -1,0 +1,22 @@
+.movies__more {
+  width: 320px;
+  display: flex;
+  justify-content: center;
+  padding: 11px 60px 9px 60px;
+  background: none;
+  border: 1px solid #e8e8e8;
+  color: black;
+  cursor: pointer;
+  margin: 80px auto 0 auto;
+  transition: .4s;
+}
+
+.movies__more:hover {
+  opacity: .7;
+}
+
+@media screen and (max-width: 513px) {
+  .movies__more {
+    width: 100%;
+  }
+}

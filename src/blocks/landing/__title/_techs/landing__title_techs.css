@@ -1,0 +1,20 @@
+.landing__title_techs {
+  text-align: center;
+  margin: 90px auto 0 auto;
+}
+
+@media screen and (max-width: 769px) {
+  .landing__title_techs {
+    margin: 80px auto 0 auto;
+    font-size: 50px;
+    line-height: 58px;
+  }
+}
+
+@media screen and (max-width: 513px) {
+  .landing__title_techs {
+    margin: 60px auto 0 auto;
+    font-size: 30px;
+    line-height: 36px;
+  }
+}

@@ -1,0 +1,14 @@
+.promo__content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 50%;
+}
+
+@media screen and (max-width: 769px) {
+    .promo__content {
+        order: 2;
+        text-align: center;
+        max-width: 95%;
+    }
+}

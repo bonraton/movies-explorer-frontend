@@ -1,0 +1,9 @@
+.navbar_auth {
+    display: flex;
+}
+
+@media screen and (max-width: 769px) {
+    .navbar_auth {
+        display: none;
+    }
+}

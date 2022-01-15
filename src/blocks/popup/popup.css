@@ -1,0 +1,22 @@
+.popup {
+    display: flex;
+    visibility: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 100vh;
+    background-color: #FFF;
+    z-index: 1;
+    padding: 160px 0 90px 0;
+    opacity: 0;
+    transition: .4s;
+}
+
+@media screen and (max-width: 331px) {
+    .popup {
+    }
+}

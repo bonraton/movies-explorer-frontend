@@ -1,0 +1,30 @@
+.techs__item {
+    padding: 21px 0 22px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E8E8E8;
+    font-size: 14px;
+    line-height: 17px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    transition: .4s;
+}
+
+.techs__item:active {
+    background-color: gray;
+}
+
+.techs__item:hover {
+    opacity: .7;
+    transform: scale(120%);
+}
+
+@media screen and (max-width: 769px) {
+    .techs__item {
+        font-size: 12px;
+        line-height: 14px;
+        width: 84px;
+    }
+}

@@ -1,0 +1,16 @@
+.about-project__plan {
+    display: flex;
+    margin-top: 110px;
+}
+
+@media screen and (max-width: 769px) {
+    .about-project__plan {
+        margin-top: 93px;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .about-project__plan {
+        margin-top: 60px;
+    }
+}

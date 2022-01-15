@@ -1,0 +1,21 @@
+.techs__subtitle {
+  margin: 26px auto 100px auto;
+  max-width: 460px;
+  text-align: center;
+}
+
+@media screen and (max-width: 769px) {
+  .techs__subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 22px auto 83px auto;
+  }
+}
+
+@media screen and (max-width: 513px) {
+  .techs__subtitle {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 24px auto 50px auto;
+  }
+}

@@ -1,0 +1,12 @@
+.about-project__info {
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 513px) {
+    .about-project__info {
+        margin-top: 0;
+        flex-direction: column;
+    }
+}

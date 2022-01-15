@@ -1,0 +1,12 @@
+.about-me__link {
+    margin-right: 20px;
+    font-size: 14px;
+    line-height: 17px;
+    text-decoration: none;
+    color: black;
+    transition: .4s;
+}
+
+.about-me__link:hover {
+    opacity: .7;
+}
