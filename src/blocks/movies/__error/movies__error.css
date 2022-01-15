@@ -1,0 +1,15 @@
+.movies__error {
+    max-width: 50%;
+    font-size: 15px;
+    line-height: 30px;
+    font-weight: 300;
+    color: red;
+    text-align: center;
+    margin: -100px auto 0 auto
+}
+
+@media screen and (max-width: 513px) {
+    .movies__error {
+        margin: 0px auto 0 auto
+    }    
+}

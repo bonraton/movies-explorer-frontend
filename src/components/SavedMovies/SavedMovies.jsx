@@ -1,22 +1,24 @@
 import './SavedMovies.css';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import MoviesCard from '../MoviesCard/MoviesCard';
 
-export default function SavedMovies() {
+export default function SavedMovies({ movie, savedMovies, ...props}) {
+
+    function handleDelete (movie) {
+        props.onDelete(movie)
+    }
+
     return (
         <section>
-            <MoviesCardList>
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
-                <MoviesCard />
+            <MoviesCardList
+            error={props.error}
+            isLoading={props.isLoading}
+            movies={props.movies}
+            onClick={props.onClick}
+            isLoaded={true}
+            savedMovies={savedMovies}
+            onDelete={handleDelete}
+            hiddenAddBtn={props.hiddenAddBtn}
+            >
             </MoviesCardList>
         </section>
     )

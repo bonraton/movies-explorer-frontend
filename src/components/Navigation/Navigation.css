@@ -8,3 +8,5 @@
 @import url('../../blocks/navbar/__btn/_promo/navbar__btn_promo.css');
 @import url('../../blocks/navbar/__btn-icon/navbar__btn-icon.css');
 @import url('../../blocks/navbar/__btn-icon/_promo/navbar__btn-icon_promo.css');
+@import url('../../blocks/navbar/__link/_hidden/navbar__link_hidden.css');
+@import url('../../blocks/navbar/__btn/_hidden/navbar__btn_hidden.css');

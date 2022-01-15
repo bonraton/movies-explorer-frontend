@@ -1,26 +1,57 @@
 import Input from "../Input/Input";
 import './Login.css';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import useValidation from "../../../hooks/useValidation";
 
-export default function Login() {
+function Login(props) {
+
+  const {
+    email,
+    password,
+    handleEmailInput,
+    handlePasswordInput,
+    isEmailValid,
+    isPasswordValid,
+    emailError,
+    passwordError } = useValidation()
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSubmit(email, password);
+  }
+
   return (
-    <form className="auth-form">
+    <form className="auth-form" onSubmit={handleSubmit}>
       <Input
+        inputClass="input__form"
+        isValidated={isEmailValid}
         name="E-mail"
         id="login-email"
-        type="email" />
+        type="email"
+        onChange={handleEmailInput}
+        value={email || ''}
+        error={emailError}
+      />
       <Input
+        inputClass="input__form"
         id="login-password"
         name="Пароль"
         type="password"
-        className="input__form_error"
+        onChange={handlePasswordInput}
+        value={password || ''}
+        isValidated={isPasswordValid}
+        error={passwordError}
       />
+      <p className="auth-form__error">{props.formError}</p>
       <div className="auth-form__btn-container">
-        <Link to="/" className="auth-form__submit-btn">
+        <button
+          disabled={`${(!isPasswordValid || !isEmailValid) ? 'disabled' : ''}`}
+          className='auth-form__submit-btn'>
           Войти
-        </Link>
+        </button>
         <p className="auth-form__text">Еще не зарегистрированы?
-          <Link to="/signup" className="auth-form__link">
+          <Link onClick={props.resetError} to="/signup" className="auth-form__link">
             Регистрация
           </Link>
         </p>
@@ -28,3 +59,5 @@ export default function Login() {
     </form>
   );
 }
+
+export default withRouter(Login);

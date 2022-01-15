@@ -13,3 +13,8 @@
 @import url('../../blocks/toggle/_hidden/toggle_hidden.css');
 @import url('../../blocks/movie/__delete-btn/movie__delete-btn.css');
 @import url('../../blocks/movie/__delete-btn/_hidden/movie__delete-btn_hidden.css');
+@import url('../../blocks/movies/__error/movies__error.css');
+@import url('../../blocks/movie/__add-btn/movie__add-btn.css');
+@import url('../../blocks/movie/__btn-container/movie__btn-container.css');
+@import url('../../blocks/movie/__add-btn/__add-btn_active/movie__add-btn_active.css');
+@import url('../../blocks/movie/__btn-container/_hidden/movie__btn-container_hidden.css');
