@@ -3,12 +3,8 @@ import { useState } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 
 export default function Input(props) {
+
     const [hiddenSpanInput, setHiddenSpanInput] = useState(false);
-
-    useEffect(() => {
-        hideInputSpan()
-    }, [hiddenSpanInput, props.value])
-
 
     function hideInputSpan() {
         if (props.value.length > 0) {

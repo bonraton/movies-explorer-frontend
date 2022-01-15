@@ -149,7 +149,6 @@ function App(props) {
           return movieObject(movie, `https://api.nomoreparties.co${movie.image.url}`)
         })
         let filteredMovies = filterMovies(searchValue, movies, shortMoviesChecked)
-        console.log(filteredMovies)
         setFilteredMoviesCards(filteredMovies)
         setMoviesCards(filteredMovies.slice(0, cardsColumns * cardsInRow))
       }
@@ -362,7 +361,6 @@ function App(props) {
 
   async function deleteCard(movie, data) {
     await removeMovie(data)
-    console.log(movie)
     let newArray = savedMovies.filter((c) => {
       return movie.movieId !== c.movieId
     })
@@ -395,10 +393,8 @@ function App(props) {
         history.push('./movies');
         setFormError('')
         setIsLoggedIn(true)
-        console.log(result)
       } else {
         setFormError(result.message)
-        console.log(result)
       }
     }
     catch (e) {
