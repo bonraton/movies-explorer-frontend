@@ -7,4 +7,11 @@
     font-weight: 500;
     line-height: 18px;
     cursor: pointer;
+    border-radius: 48px;
+    background-color: #3456F3;
+    transition: .4s;
+}
+
+.search-form__button:disabled {
+ background: gray;   
 }

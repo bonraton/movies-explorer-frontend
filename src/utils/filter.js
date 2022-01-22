@@ -1,18 +1,30 @@
+// export function filterAllMovies(searchValue, movies, isChecked) {
+//     let filteredByNameRu = filterByNameRu(searchValue, movies)
+//     let filteredByNameEn = filterByNameEn(searchValue, movies)
+
+//     const regexpRu = /[а-яё]/gi
+//     if (searchValue.match(regexpRu)) {
+//         return filterShorts(filteredByNameRu, isChecked)
+//     } else {
+//         return filterShorts(filteredByNameEn, isChecked)
+//     }
+// }
+
 export function filterAllMovies(searchValue, movies, isChecked) {
     let filteredByNameRu = filterByNameRu(searchValue, movies)
     let filteredByNameEn = filterByNameEn(searchValue, movies)
 
     const regexpRu = /[а-яё]/gi
     if (searchValue.match(regexpRu)) {
-        return filterShorts(filteredByNameRu, isChecked)
+        return filteredByNameRu
     } else {
-        return filterShorts(filteredByNameEn, isChecked)
+        return filteredByNameEn
     }
 }
 
 function filterByNameRu(searchValue, movies) {
     let filteredArray = movies.filter((movie) => {
-        return (movie.nameRU.toLowerCase()).includes(searchValue.toLowerCase())
+        return ( movie.nameRU.toLowerCase()).includes(searchValue.toLowerCase())
     })
     return filteredArray
 }
@@ -24,9 +36,16 @@ function filterByNameEn(searchValue, movies) {
     return filteredArray
 }
 
-export function filterShorts(movies, isChecked) {
+export function filterShorts(movies) {
     let filteredShorts = movies.filter((movie) => {
         return (movie.duration <= 40)
     })
-    return isChecked ? filteredShorts : movies
+    return filteredShorts
+}
+
+export function filterSavedMovies(movies, userId) {
+    let filteredMovies = movies.data.filter((movie) => {
+        return movie.owner === userId
+    })
+    return filteredMovies
 }

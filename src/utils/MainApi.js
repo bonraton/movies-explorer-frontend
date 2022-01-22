@@ -1,10 +1,8 @@
+import { endpoints, BASE_URL } from "../constants/endpoints";
+
 function getJwtFromLocal() {
     return localStorage.getItem('jwt')
 }
-
-// const BASE_URL = 'http://localhost:4000'
-const BASE_URL = 'https://api.movies.diploma.nomoredomains.rocks';
-
 const getResponseData = (result) => {
     if (result.ok) {
         return result.json()
@@ -14,7 +12,7 @@ const getResponseData = (result) => {
 }
 
 export async function getUser() {
-    let promise = await fetch(`${BASE_URL}/users/me`, {
+    let promise = await fetch(`${BASE_URL}${endpoints.profile}`, {
         'method': 'GET',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,
@@ -29,7 +27,7 @@ export async function getUser() {
 }
 
 export function updateUser(name, email) {
-    return fetch(`${BASE_URL}/users/me`, {
+    return fetch(`${BASE_URL}${endpoints.profile}`, {
         'method': 'PATCH',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,
@@ -47,7 +45,7 @@ export function updateUser(name, email) {
 
 //addMovie
 export async function saveMovie(movie) {
-    let promise = await fetch(`${BASE_URL}/movies`, {
+    let promise = await fetch(`${BASE_URL}${endpoints.movies}`, {
         'method': 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -77,7 +75,7 @@ export async function saveMovie(movie) {
 }
 
 export async function removeMovie(data) {
-    let promise = await fetch(`${BASE_URL}/movies/${data}`, {
+    let promise = await fetch(`${BASE_URL}${endpoints.movies}/${data}`, {
         'method': 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -93,7 +91,7 @@ export async function removeMovie(data) {
 }
 
 export async function getSavedMoviesData() {
-    let promise = await fetch(`${BASE_URL}/movies`, {
+    let promise = await fetch(`${BASE_URL}${endpoints.movies}`, {
         'method': 'GET',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,

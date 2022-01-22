@@ -1,19 +1,21 @@
 import { useState, useContext } from "react";
 import { validate } from "react-email-validator";
 import CurrentUserContext from '../contexts/currentUserContext'
+import { validationErrors } from "../constants/errors";
 
 export default function useValidation() {
-    const [name, setName] = useState('')
+    const userContext = useContext(CurrentUserContext);
+
+    const [name, setName] = useState(userContext.name)
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [isNameValid, setIsNameValid] = useState(false);
-    const [isEmailValid, setIsEmailValid] = useState(false);
-    const [isPasswordValid, setIsPasswordValid] = useState(false);
+    const [email, setEmail] = useState(userContext.email);
+    const [isNameValid, setIsNameValid] = useState(true);
+    const [isEmailValid, setIsEmailValid] = useState(true);
+    const [isPasswordValid, setIsPasswordValid] = useState(true);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [nameError, setNameError] = useState('');
 
-    const userContext = useContext(CurrentUserContext);
 
     const regexpLetters = /[a-zA-Zа-яёА-ЯЁ\-\s]/gi
 
@@ -39,11 +41,11 @@ export default function useValidation() {
             setPasswordError('')
         } else if (value.length < 1) {
             setIsPasswordValid(false)
-            setPasswordError('Поле не может быть пустым')
+            setPasswordError(validationErrors.required)
         }
         else {
             setIsPasswordValid(false)
-            setPasswordError('Пароль не может быть короче 8 символов')
+            setPasswordError(validationErrors.passwordFormat)
         }
     }
 
@@ -62,10 +64,10 @@ export default function useValidation() {
         let matched = !value.match(regexpLetters) ? [] : value.match(regexpLetters)
         if (value.length > matched.length) {
             setIsNameValid(false)
-            setNameError('Недопустимый символ в имени')
+            setNameError(validationErrors.nameformat)
         } else if (value === userContext.name) {
             setIsNameValid(false)
-            setNameError('Данное имя уже введено')
+            setNameError(validationErrors.nameCompared)
         } else {
             setNameError('')
             setIsNameValid(true)
@@ -75,7 +77,7 @@ export default function useValidation() {
     const checkNameRequired = (e) => {
         let value = e.target.value
         if (value.length < 1) {
-            setNameError('Поле не может быть пустым')
+            setNameError(validationErrors.required)
             setIsNameValid(false)
         } else {
             checkNameValidity(e)
@@ -89,13 +91,23 @@ export default function useValidation() {
             setEmailError('')
             if (value === userContext.email) {
                 setIsEmailValid(false)
-                setEmailError('Данный email уже введен')
+                setEmailError(validationErrors.emailCompared)
             } else {
                 return
             }
         } else {
             setIsEmailValid(false)
-            setEmailError('некорректная форма email')
+            setEmailError(validationErrors.emailFormat)
+        }
+    }
+
+    const compareEmail = (e) => {
+        let value = e.target.value;
+        if (value === userContext.email) {
+            setEmailError(validationErrors.emailCompared)
+            setIsEmailValid(false)
+        } else {
+            checkEmailValidity(e)
         }
     }
 
@@ -103,17 +115,7 @@ export default function useValidation() {
         let value = e.target.value;
         if (value.length < 1) {
             setEmailError(false)
-            setEmailError('Поле не может быть пустым')
-        } else {
-            checkEmailValidity(e)
-        }
-    }
-
-    const compareEmail = (e) => {
-        let value = e.target.value;
-        if (value === userContext.email) {
-            setEmailError('Я машина, и я отказываюсь перезаписывать данное значение')
-            setIsEmailValid(false)
+            setEmailError(validationErrors.required)
         } else {
             checkEmailValidity(e)
         }

@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.movies.diploma.nomoredomains.rocks';
+import {BASE_URL, endpoints} from "../constants/endpoints"
 
 const getResponseData = (result) => {
     if (result.ok) {
@@ -9,7 +9,7 @@ const getResponseData = (result) => {
 }
 
 export async function register(name, email, password) {
-    const promise = await fetch(`${BASE_URL}/signup`, {
+    const promise = await fetch(`${BASE_URL}${endpoints.signup}`, {
         'method': 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export async function register(name, email, password) {
 }
 
 export async function login(email, password) {
-    const promise = await fetch(`${BASE_URL}/signin`, {
+    const promise = await fetch(`${BASE_URL}${endpoints.signin}`, {
         'method': 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ export async function login(email, password) {
 }
 
 export const getUserContent = (jwt) => {
-    return fetch(`${BASE_URL}/users/me`, {
+    return fetch(`${BASE_URL}${endpoints.profile}`, {
         method: "GET",
         headers: {
             'Accept': "application/json",
