@@ -43,7 +43,6 @@ export async function login(email, password) {
     try {
         const result = await promise.ok ? promise.json() : Promise.reject(promise)
         const token = await result
-        console.log(token.token)
         localStorage.setItem('jwt', token)
         return token
     } catch (e) {
@@ -64,4 +63,16 @@ export const getUserContent = (jwt) => {
         .catch((e) => {
             console.log(e)
         })
+}
+
+export const getSavedMoviesContent = (jwt) => {
+    return fetch(`${BASE_URL}${endpoints.movies}`, {
+        method: "GET",
+        headers: {
+            'Accept': "application/json",
+            "Content-Type": "application/json",
+            "Authorizarion": `Bearer ${jwt}`
+        },
+    }).then((result) => getResponseData(result))
+    .catch((e) => console.log(e))
 }

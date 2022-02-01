@@ -1,11 +1,18 @@
 import MoviesCard from "./MoviesCard";
 import Preloader from '../Preloader/Preloader';
-import { memo } from 'react'
 
 function MoviesCardList({ movie, isAdded, savedMovies, ...props }) {
 
   function handleLike (movie) {
     props.onCardLike(movie)
+  }
+
+  function handleLike (movie) {
+    if (isAdded) {
+      props.handleDislike(movie)
+    } else {
+      props.handleLike(movie)
+    }
   }
 
   function handleDelete (movie) {
@@ -34,13 +41,16 @@ function MoviesCardList({ movie, isAdded, savedMovies, ...props }) {
           duration={movie.duration}
           trailer={movie.trailerLink}
           image={movie.image}
-          link={movie.trailerLink}
+          link={movie.trailer}
           year={movie.year}
           description={movie.description}
           trailer={movie.trailerLink}
-          onClick={handleLike}
-          onDelete={handleDelete}
           _id={movie._id}
+
+          onClick={handleLike}
+          // handleLike={handleLike}
+          // handleDislike={handleDelete}
+          onDelete={handleDelete}
           hiddenDeleteBtn={props.hiddenDeleteBtn}
           hiddenAddBtn={props.hiddenAddBtn}
           isAdded={savedMovies.some((c) => c.movieId === movie.movieId)}

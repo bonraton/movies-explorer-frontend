@@ -26,7 +26,6 @@ export default function SearchForm({ ...props }) {
   function handleSubmit(e) {
     e.preventDefault();
     props.onSubmit(value)
-    console.log(value)
   }
 
   function setInputValue(e) {
@@ -49,6 +48,7 @@ export default function SearchForm({ ...props }) {
         required>
         <div className="search-form__container">
           <input
+            disabled={props.isRequesting ? true : false}
             type="text"
             name={props.name}
             className="search-form__input"

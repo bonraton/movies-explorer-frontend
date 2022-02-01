@@ -45,32 +45,36 @@ export function updateUser(name, email) {
 
 //addMovie
 export async function saveMovie(movie) {
-    let promise = await fetch(`${BASE_URL}${endpoints.movies}`, {
-        'method': 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getJwtFromLocal()}`
-        },
-        body: JSON.stringify({
-            movieId: movie.movieId,
-            nameRU: movie.nameRU,
-            nameEN: !movie.nameEN ? 'undefined' : movie.nameEN,
-            country: !movie.country ? 'undefined' : movie.country,
-            director: movie.director,
-            thumbnail: movie.thumbnail,
-            duration: movie.duration,
-            image: movie.image,
-            link: movie.trailerLink,
-            year: movie.year,
-            description: movie.description,
-            trailer: movie.trailer
-        })
-    })
-    let result = await getResponseData(promise);
     try {
+        let promise = await fetch(`${BASE_URL}${endpoints.movies}`, {
+            'method': 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getJwtFromLocal()}`
+            },
+            body: JSON.stringify({
+                movieId: movie.movieId,
+                nameRU: movie.nameRU,
+                nameEN: !movie.nameEN ? 'undefined' : movie.nameEN,
+                country: !movie.country ? 'undefined' : movie.country,
+                // nameEN: movie.nameEN,
+                // country: movie.country,
+                director: movie.director,
+                thumbnail: movie.thumbnail,
+                duration: movie.duration,
+                image: movie.image,
+                link: movie.trailerLink,
+                year: movie.year,
+                description: movie.description,
+                trailer: movie.trailer
+            })
+        })
+        let result = await getResponseData(promise);
         return result
     } catch (e) {
-        console.log(e)
+        let error = await e.json()
+        console.log(error.error, error.statusCode)
+        return error
     }
 }
 
@@ -90,16 +94,18 @@ export async function removeMovie(data) {
     }
 }
 
-export async function getSavedMoviesData() {
+export async function getSavedMoviesData(userId) {
     let promise = await fetch(`${BASE_URL}${endpoints.movies}`, {
         'method': 'GET',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,
         },
     })
+    let result = await getResponseData(promise)
     try {
-        let result = await getResponseData(promise)
-        return result
+        return await result.data.filter((movie) => {
+            return movie.owner === userId
+        })
     } catch (e) {
         console.log(e)
     }

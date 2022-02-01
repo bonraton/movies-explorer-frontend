@@ -23,6 +23,7 @@ function Login(props) {
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <Input
+        isDisabled={props.isDisabled ? true : false}
         inputClass="input__form"
         isValidated={isEmailValid}
         name="E-mail"
@@ -33,6 +34,7 @@ function Login(props) {
         error={emailError}
       />
       <Input
+        isDisabled={props.isDisabled ? true : false}
         inputClass="input__form"
         id="login-password"
         name="Пароль"

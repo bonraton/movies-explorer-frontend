@@ -23,7 +23,7 @@ import CurrentUserContext from '../../contexts/currentUserContext';
 import { searchFormErrors } from '../../constants/errors';
 
 //UTILS
-import { filterAllMovies, filterShorts, filterSavedMovies } from '../../utils/filter';
+import { filterAllMovies, filterShorts } from '../../utils/filter';
 
 //API
 import MoviesApi from '../../utils/MoviesApi';
@@ -52,6 +52,7 @@ function App() {
   const [shortMoviesChecked, setShortMoviesCheked] = useState(Boolean)
   const [savedMoviesCheckbox, setSavedMoviesCheckbox] = useState(false)
   const [savedMoviesData, setSavedMoviesData] = useState([])
+  const [savedLikedMovies, setSavedLikedMovies] = useState([])
 
   const [allCardsLoaded, setAllCardsLoaded] = useState(true);
   const [cardsLoading, setCardsLoading] = useState(true)
@@ -60,10 +61,22 @@ function App() {
   const [cardsColumns, setCardsColumns] = useState()
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
+  const [moviesSearchFormRequesting, setMoviesSearchFormRequesting] = useState(Boolean)
+  const [savedMoviesSearchFormRequesting, setSavedMoviesMoviesSearchFormRequesting] = useState(Boolean)
+  const [profileInputDisable, setProfileInputDisable] = useState(Boolean)
+  const [loginInputDisable, setLoginInputDisable] = useState(Boolean)
+  const [registerInputDisable, setRegisterInputDisable] = useState(Boolean)
+
   const [searchError, setSearchError] = useState('');
-  const [error, setError] = useState({
-    moviesSearchError: '',
-    shortsSearchError: ''
+
+  const [savedMoviesError, setSavedMoviesError] = useState({
+    long: '', 
+    shorts: ''
+  })
+
+  const [moviesError, setMoviesError] = useState({
+    long: '',
+    shorts: ''
   })
 
   const [successeMessage, setSuccesseMessage] = useState('')
@@ -80,25 +93,39 @@ function App() {
     setCardsQuanity();
   }, [windowWidth])
 
-
-  useEffect(() => {
-    tokenCheck()
-    getSavedMovies()
-    getUserInfo()
-  }, [])
-
-  useEffect(() => {
-    renderSavedCards(filteredSavedMoviesCards, savedMoviesShorts, savedMoviesCheckbox)
-  }, [filteredSavedMoviesCards, savedMoviesShorts, savedMoviesCheckbox])
-
   useEffect(() => {
     renderCards(filteredMoviesCards, shortMoviesCards)
     handleSearchErrors()
   }, [cardsColumns, filteredMoviesCards, shortMoviesCards, shortMoviesChecked])
 
+  // useEffect(() => {
+  //   handleSearchErrors()
+  // }, [filteredSavedMoviesCards, shortMoviesCards])
+
+  useEffect(() => {
+    getSavedMovies()
+  }, [currentUser])
+
+  useEffect(() => {
+    renderInitialSaved()
+  }, [savedMoviesData, filteredSavedMoviesCards, savedMoviesData, savedMoviesShorts, savedMoviesCheckbox])
+
+  useEffect(() => {
+    renderFiltered()
+    handleSavedMoviesErrors()
+  }, [filteredSavedMoviesCards, savedMoviesData, savedMoviesCheckbox])
+
+
+  useEffect(() => {
+    tokenCheck()
+    getUserInfo()
+    getSavedMoviesData()
+  }, [isLoggedIn])
+
   useEffect(() => {
     renderMoviesFromLocalStorage()
   }, [])
+
 
   //LISTENERS
   window.addEventListener('resize', () => {
@@ -161,6 +188,7 @@ function App() {
   async function getAllMoviesData(searchValue) {
     try {
       setCardsLoading(false)
+      setMoviesSearchFormRequesting(true)
       let data = await Api.getMoviesData();
       if (!data) {
         setSearchError(searchFormErrors.searchInternalError)
@@ -205,9 +233,9 @@ function App() {
       setFilteredMoviesCards(filteredMovies)
       setShortMoviesCards(shortMovies)
       renderCards(filteredMovies, shortMovies)
-      setError({ moviesSearchError: '', shortsSearchError: '' })
+      setMoviesError({ moviesSearchError: '', shortsSearchError: '' })
     } else {
-      setError({ moviesSearchError: '', shortsSearchError: '' })
+      setMoviesError({ moviesSearchError: '', shortsSearchError: '' })
     }
   }
 
@@ -218,10 +246,12 @@ function App() {
     if (filteredMovies.length > 0 && searchValue.length > 0) {
       setSearchError('')
       setCardsLoading(true)
+      setMoviesSearchFormRequesting(false)
       return filteredMovies
     } else {
       setFilteredMoviesCards([])
       setCardsLoading(true)
+      setMoviesSearchFormRequesting(false)
       return []
     }
   }
@@ -265,18 +295,35 @@ function App() {
   // Отрисовать ошибки фильмов
   function handleMoviesSearchError() {
     if (filteredMoviesCards.length < 1 && !shortMoviesChecked) {
-      setError({ moviesSearchError: 'Ничего не найдено', shortsSearchError: 'Ничего не найдено' })
+      setMoviesError({ long: 'Ничего не найдено', shortsSearchError: 'Ничего не найдено' })
     } else {
-      setError({ moviesSearchError: '' });
+      setMoviesError({ long: '' });
+    }
+  }
+
+  function handleSavedMoviesSearchError() {
+    if (filteredSavedMoviesCards.length < 1 && !savedMoviesCheckbox) {
+      setSavedMoviesError({ long: 'ничего не найдено'})
+    } else {
+      setSavedMoviesError({ long: ''})
     }
   }
 
   //Отрисовать ошибки короткометражек
   function handleShortsSearchError() {
     if (shortMoviesCards.length < 1 && shortMoviesChecked) {
-      setError({ shortsSearchError: 'Ничего не найдено' })
+      setMoviesError({ shorts: 'Ничего не найдено' })
     } else {
       handleMoviesSearchError()
+    }
+  }
+
+  function handleSavedShortsError() {
+    let shorts = filterShorts(filteredSavedMoviesCards)
+    if (shorts.length < 1 && savedMoviesCheckbox) {
+      setSavedMoviesError({ shorts: 'Ничего не найдено' })
+    } else {
+      handleSavedMoviesSearchError()
     }
   }
 
@@ -286,59 +333,14 @@ function App() {
     handleShortsSearchError()
   }
 
-  const searchErrorMessage = shortMoviesChecked ? error.shortsSearchError : error.moviesSearchError
-
-  // Берем сохраненные фильмы
-  async function getSavedMovies() {
-    try {
-      const savedMovies = await getSavedMoviesData()
-      const savedByOwner = filterSavedMovies(savedMovies, currentUser._id)
-      if (!savedByOwner) {
-        console.log('no data')
-      } else {
-        let movies = savedByOwner.map((movie) => {
-          return movieObject(movie, movie.image)
-        })
-        let shorts = filterShorts(movies)
-        setSavedMoviesData(movies)
-        setSavedMovies(movies)
-        setFilteredSavedMoviesCards(movies)
-        setSavedMoviesShorts(shorts)
-      }
-    } catch (e) {
-      console.log(e)
-    }
+  function handleSavedMoviesErrors () {
+    handleSavedMoviesSearchError()
+    handleSavedShortsError()
   }
 
-  // Фильтр сохраненных
-  function filterSaved(searchValue, movies) {
-    let filtered = filterAllMovies(searchValue, movies)
-    let shorts = filterShorts(filtered)
-    console.log(filtered, shorts)
-    setFilteredSavedMoviesCards(filtered)
-    setSavedMoviesShorts(shorts)
-  }
-
-  //Кнопка фильтра для сохраненных
-  function handleFilterButtonSavedMovies() {
-    setSavedMoviesCheckbox(!savedMoviesCheckbox)
-  }
-
-  // обработчик поиска сохраненных карточек
-  async function handleSearchFormSavedMovies(searchValue) {
-    await getSavedMovies(searchValue)
-    filterSaved(searchValue, savedMoviesData)
-    renderSavedCards(filteredSavedMoviesCards, savedMoviesShorts, savedMoviesCheckbox)
-  }
-
-  // Отрисовка сохраненных карточек
-  function renderSavedCards(movies, shorts, isChecked) {
-    if (isChecked) {
-      setSavedMovies(shorts)
-    } else {
-      setSavedMovies(movies)
-    }
-  }
+    
+  const moviesSearchErrorMessage = shortMoviesChecked ? moviesError.shorts : moviesError.long
+  const savedMoviesSearchErrorMessage = savedMoviesCheckbox ? savedMoviesError.shorts : savedMoviesError.long
 
   //Берем данные юзера
   async function getUserInfo() {
@@ -355,67 +357,160 @@ function App() {
   async function updateUserInfo(name, email) {
     try {
       let userInfo = await updateUser(name, email);
+      setProfileInputDisable(true)
       if (userInfo.data) {
         setCurrentUser(userInfo.data)
         setFormError('')
         setSuccesseMessage('Данные успешно изменены')
+        setProfileInputDisable(false)
       } else {
         setFormError(userInfo.message)
+        setProfileInputDisable(false)
       }
     } catch (e) {
       console.log(e)
     }
   }
 
-  // обработчик лайка
-  function likeClick(movie, data) {
-    console.log(movie)
-    if (!savedMovies.some((c) => c.movieId === movie.movieId)) {
+  //Удалить фильм
+  async function onDelete(movie) {
+    let result = await removeMovie(movie._id);
+    let newArray = savedMovies.filter((c) => {
+      return movie._id !== c._id
+    })
+    await setFilteredSavedMoviesCards(newArray)
+    setSavedMovies(newArray)
+    return result
+  }
+
+  async function deleteCard(movie, data) {
+    data = savedMoviesData.filter((c) => {
+      return movie.movieId === c.movieId
+    })[0]._id
+    try {
+      if (savedMoviesData.some((c) => movie.movieId === c.movieId)) {
+        let moviez = await removeMovie(data)
+        let newArray = await savedMoviesData.filter((c) => {
+          return movie.movieId !== c.movieId
+        })
+        setSavedMoviesData(newArray)
+        setFilteredSavedMoviesCards(newArray)
+      } else {
+        return
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  function handleLike (movie, data) {
+    if (!savedMoviesData.some((c) => movie.movieId === c.movieId)) {
       addSavedMovie(movie)
     } else {
-      data = savedMovies.filter((c) => {
+      data = savedMoviesData.filter((c) => {
         return movie.movieId === c.movieId
       })[0]._id
       deleteCard(movie, data)
     }
   }
 
-  //Сброс ошибк
+  async function addSavedMovie(movie) {
+    console.log('before', movie)
+    let savedMovie = await saveMovie(movie)
+    try {
+      console.log('after', savedMovie)
+      if (savedMovie.data) {
+        setSavedMoviesData([...savedMoviesData, savedMovie.data])
+        setFilteredSavedMoviesCards([...filteredSavedMoviesCards, savedMovie.data])
+        renderFiltered()
+      } else {
+        console.log('Вы не можете добавить данный фильм', savedMovie.message)
+      }
+    } 
+   catch (e) {
+      console.error(e)
+    }
+  }
+
+  //Сброс ошибок
   function resetsearchFormErrors() {
     setSearchError('')
     setFormError('')
     setSuccesseMessage('')
   }
 
-  //Добавить фильм
-  async function addSavedMovie(movie) {
-    try {
-      let savedMovie = await saveMovie(movie)
-      await setSavedMovies([...savedMovies, savedMovie.data])
-    } catch (e) {
-      console.log(e)
+
+  async function getSavedMovies() {
+    let moviesData = await getSavedMoviesData(currentUser._id)
+    if (!moviesData) {
+      console.log('no data')
+    } else {
+      // карточки со всеми лайками
+      setSavedMoviesData(moviesData)
+      setFilteredSavedMoviesCards(moviesData)
+      let shorts = filterShorts(moviesData)
+      setSavedMoviesShorts(shorts)
+      savedMoviesCheckbox ? setSavedMovies(shorts) : setSavedMovies(moviesData)
     }
   }
 
-  //Удалить фильм
-  async function deleteCard(movie, data) {
-    await removeMovie(data)
-    let newArray = savedMovies.filter((c) => {
-      return movie.movieId !== c.movieId
-    })
-    await setSavedMovies(newArray)
+  function renderInitialSaved() {
+    let shorts = filterShorts(savedMoviesData)
+    if (savedMoviesCheckbox) {
+      setSavedMovies(savedMoviesShorts)
+    } else {
+      setSavedMovies(savedMoviesData)
+    }
+  }
+
+  function renderFiltered() {
+    let shorts = filterShorts(filteredSavedMoviesCards)
+    if (savedMoviesCheckbox) {
+      setSavedMovies(savedMoviesShorts)
+    } else {
+      setSavedMovies(filteredSavedMoviesCards)
+    }
+  }
+
+  function handleFilterButtonSavedMovies() {
+    setSavedMoviesCheckbox(!savedMoviesCheckbox)
+  }
+
+  //фильтр сохраненных фильмов
+  function filterSavedMovies(searchValue) {
+    setSavedMoviesMoviesSearchFormRequesting(true)
+    let filteredMovies = filterAllMovies(searchValue, savedMoviesData)
+    let shorts = filterShorts(filteredMovies)
+    if (filteredMovies.length < 1) {
+      setSavedMoviesShorts([])
+      setFilteredSavedMoviesCards([])
+      setSavedMovies([])
+      setSavedMoviesMoviesSearchFormRequesting(false)
+    } else {
+      setFilteredSavedMoviesCards(filteredMovies)
+      setSavedMoviesShorts(shorts)
+      setSavedMoviesMoviesSearchFormRequesting(false)
+    }
+  }
+
+  // Поиск сохраненных фильмов
+  async function handleSavedMoviesSearch(searchValue) {
+    filterSavedMovies(searchValue)
   }
 
   //Регистрация + автологин
   async function handleRegister(name, email, password) {
     let result = await register(name, email, password)
+    setRegisterInputDisable(true)
     try {
       if (result.data) {
+        setRegisterInputDisable(false)
         setIsLoggedIn(true)
         setFormError('')
         await handleLogin(email, password)
         setCurrentUser(result.data)
       } else {
+        setRegisterInputDisable(false)
         setFormError(result.message)
       }
     }
@@ -427,14 +522,17 @@ function App() {
   // LOGIN
   async function handleLogin(email, password) {
     let result = await login(email, password)
+    setLoginInputDisable(true)
     try {
       if (result.token) {
         localStorage.setItem('jwt', result.token)
         setFormError('')
         setIsLoggedIn(true)
         history.replace('./movies');
+        setLoginInputDisable(false)
       } else {
         setFormError(result.message)
+        setLoginInputDisable(false)
       }
     }
     catch (e) {
@@ -442,30 +540,21 @@ function App() {
     }
   }
 
-   //Проверяем токен при загрузке страницы
-   async function tokenCheck() {
+  //Проверяем токен при загрузке страницы
+  async function tokenCheck() {
     try {
       const jwt = localStorage.getItem('jwt');
       let userContentResult = await getUserContent(jwt)
       if (userContentResult) {
-        setCurrentUser(userContentResult.data)
         setIsLoggedIn(true);
-        history.replace('/movies')
+        setCurrentUser(userContentResult.data)
       } else {
+        setIsLoggedIn(false);
         return
       }
     } catch (e) {
       console.log(e)
     }
-  }
-
-  async function onDelete(movie) {
-    let result = await removeMovie(movie._id);
-    let newArray = savedMovies.filter((c) => {
-      return movie._id !== c._id
-    })
-    setSavedMovies(newArray)
-    return result
   }
 
   function clearLocalStorageData() {
@@ -474,15 +563,17 @@ function App() {
     localStorage.removeItem('shortMovies')
     localStorage.removeItem('checkBox')
     localStorage.removeItem('searchValue')
+    localStorage.removeItem('shortsCheckox')
     setCurrentUser({})
     setSavedMovies([])
+    setMoviesCards([])
   }
 
   // LOGOUT
   function handleLogout() {
+    setIsLoggedIn(false);
     clearLocalStorageData()
     history.push('./')
-    setIsLoggedIn(false);
   }
 
   return (
@@ -491,7 +582,7 @@ function App() {
       {/* <div className="page"> */}
       <Switch>
         <Route exact path="/">
-          <Header 
+          <Header
             headerClassName="header_promo"
             link="navbar__link_promo"
             isLoggedIn={isLoggedIn}
@@ -501,8 +592,8 @@ function App() {
           <Footer />
         </Route>
         {/* MOVIES */}
-        <ProtectedRoute path='/movies'isLoggedIn={isLoggedIn}>
-        <Header
+        <ProtectedRoute path='/movies' isLoggedIn={isLoggedIn}>
+          <Header
             btnClass="header__btn_auth"
             resetError={resetsearchFormErrors}
             isLoggedIn={isLoggedIn}>
@@ -510,27 +601,30 @@ function App() {
           <SearchForm
             isChecked={shortMoviesChecked}
             onFilterChange={handleFilterbutton}
-            // isLoggedIn={isLoggedIn}
+            isRequesting={moviesSearchFormRequesting}
             onSubmit={handleSearchForm}
             name='moviesValue'>
           </SearchForm>
           <MoviesCardList
-          component={MoviesCardList}
+            component={MoviesCardList}
             hiddenDeleteBtn='movie__delete-btn_hidden'
             isLoggedIn={isLoggedIn}
-            error={searchErrorMessage}
+            error={moviesSearchErrorMessage}
             onAddMore={handleLoadMoreCards}
             movies={moviesCards}
             isLoading={cardsLoading}
             isLoaded={allCardsLoaded}
-            onCardLike={likeClick}
-            savedMovies={savedMovies}
-            onDelete={onDelete}>
+            // onCardLike={likeClick}
+            handleLike={handleLike}
+            handleDislike={deleteCard}
+            savedMovies={savedMoviesData}
+          // onDelete={onDelete}
+          >
           </MoviesCardList>
         </ProtectedRoute>
         {/* SAVED MOVIES */}
         <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
-        <Header
+          <Header
             btnClass="header__btn_auth"
             isLoggedIn={isLoggedIn}
             resetError={resetsearchFormErrors}>
@@ -538,22 +632,23 @@ function App() {
           <SearchForm
             component={SearchForm}
             isLoggedIn={isLoggedIn}
-            onSubmit={handleSearchFormSavedMovies}
+            onSubmit={handleSavedMoviesSearch}
             onFilterChange={handleFilterButtonSavedMovies}
             isChecked={savedMoviesCheckbox}
+            isRequesting={savedMoviesSearchFormRequesting}
             name='savedMoviesValue'>
           </SearchForm>
           <SavedMovies
-          hiddenAddBtn='movie__btn-container_hidden'
-          isLoggedIn={isLoggedIn}
-          error={searchError}
-          onAddMore={handleLoadMoreCards}
-          isLoading={cardsLoading}
-          isLoaded={allCardsLoaded}
-          onCardLike={likeClick}
-          savedMovies={savedMovies}
-          onDelete={onDelete}
-          movies={savedMovies}>
+            hiddenAddBtn='movie__btn-container_hidden'
+            isLoggedIn={isLoggedIn}
+            error={savedMoviesSearchErrorMessage}
+            onAddMore={handleLoadMoreCards}
+            isLoading={cardsLoading}
+            isLoaded={allCardsLoaded}
+            // onCardLike={likeClick}
+            onDelete={deleteCard}
+            movies={savedMovies}
+            savedMovies={savedMoviesData}>
           </SavedMovies>
           <Footer />
         </ProtectedRoute>
@@ -568,7 +663,9 @@ function App() {
           <Login
             onSubmit={handleLogin}
             formError={formError}
-            resetError={resetsearchFormErrors} />
+            resetError={resetsearchFormErrors} 
+            isDisabled={loginInputDisable}/>
+          
         </Route>
         {/* {/* 5.REGISTER */}
         <Route path="/signup">
@@ -580,6 +677,7 @@ function App() {
             btn='navbar__btn_hidden'
           />
           <Register
+            isDisabled={registerInputDisable}
             formError={formError}
             onSubmit={handleRegister}
             resetError={resetsearchFormErrors} />
@@ -588,12 +686,13 @@ function App() {
         <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
           <Header btnClass="header__btn_auth" isLoggedIn={isLoggedIn} />
           <Profile
-          successe={successeMessage}
-          formError={formError}
-          onSubmit={updateUserInfo}
-          isLoggedIn={isLoggedIn}
-          onLogout={handleLogout}>
-          </Profile> 
+            successe={successeMessage}
+            formError={formError}
+            onSubmit={updateUserInfo}
+            isLoggedIn={isLoggedIn}
+            onLogout={handleLogout}
+            isDisabled={profileInputDisable}>
+          </Profile>
         </ProtectedRoute>
         <Route path='*'>
           <Error404 />

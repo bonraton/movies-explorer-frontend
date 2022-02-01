@@ -20,7 +20,7 @@ export default function Register(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        
+
         props.onSubmit(name, email, password)
     }
 
@@ -31,6 +31,7 @@ export default function Register(props) {
             id="register-form"
             className="auth-form">
             <Input
+                isDisabled={props.isDisabled ? true : false}
                 inputClass="input__form"
                 isValidated={isNameValid}
                 onChange={handleNameInput}
@@ -40,6 +41,7 @@ export default function Register(props) {
                 type="text"
                 error={nameError} />
             <Input
+                isDisabled={props.isDisabled ? true : false}
                 inputClass="input__form"
                 isValidated={isEmailValid}
                 onChange={handleEmailInput}
@@ -49,6 +51,7 @@ export default function Register(props) {
                 type="email"
                 error={emailError} />
             <Input
+                isDisabled={props.isDisabled ? true : false}
                 inputClass="input__form"
                 onChange={handlePasswordInput}
                 isValidated={isPasswordValid}

@@ -31,6 +31,8 @@ export default function Profile(props) {
       <form onSubmit={handleSubmit} id="profile-form" name="profile-form" className="profile">
         <h3 className="profile__title">Привет, {userContext.name}!</h3>
         <Input
+          // disabled={props.isDisabled ? true : false }
+          isDisabled={props.isDisabled ? true : false}
           inputClass="input__form input__form_white"
           placeholder="Имя"
           labelClass="input__container_underlined"
@@ -42,6 +44,8 @@ export default function Profile(props) {
           span={userContext.name}
         />
         <Input
+          // disabled={props.isDisabled ? true : false}
+          isDisabled={props.isDisabled ? true : false}
           placeholder="E-mail"
           inputClass="input__form input__form_white"
           value={email || ''}

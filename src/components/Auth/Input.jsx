@@ -23,6 +23,7 @@ export default function Input(props) {
             <label htmlFor={props.id}
                 className={`input__container ${props.labelClass}`}>
                 <input
+                    disabled={props.isDisabled}
                     autoComplete='off'
                     value={props.value}
                     onChange={props.onChange}
