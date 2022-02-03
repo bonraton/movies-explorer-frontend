@@ -41,6 +41,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   //Movies States
+  const [moviesData, setMoviesData] = useState([])
   const [moviesCards, setMoviesCards] = useState([])
   const [filteredMoviesCards, setFilteredMoviesCards] = useState([])
   const [shortMoviesCards, setShortMoviesCards] = useState([])
@@ -81,16 +82,13 @@ function App() {
   }, [windowWidth])
 
   useEffect(() => {
-    renderMoviesFromLocalStorage()
-  }, [isLoggedIn])
+    renderMovies(moviesData)
+    hideAddBtn(filteredMoviesCards)
+  }, [cardsColumns, cardsInRow, moviesData, shortMoviesChecked])
+
   
   useEffect(() => {
-    renderMovies(filteredMoviesCards)
-  }, [cardsColumns, cardsInRow, filteredMoviesCards, shortMoviesChecked])
-
-  useEffect(() => {
     handleMoviesErrors(moviesCards)
-    hideAddBtn(filteredMoviesCards)
   }, [moviesCards])
 
   useEffect(() => {
@@ -110,6 +108,10 @@ function App() {
     getUserInfo()
     getSavedMoviesData()
   }, [isLoggedIn])
+
+  useEffect(() => {
+    renderMoviesFromLocalStorage()
+  }, [isLoggedIn, shortMoviesChecked, cardsColumns, cardsInRow])
 
   
   //LISTENERS
@@ -155,8 +157,9 @@ function App() {
           return movieObject(movie, `https://api.nomoreparties.co${movie.image.url}`)
         })
         let filteredMovies = filterMovies(searchValue, movies)
-        setFilteredMoviesCards(filteredMovies)
+        setMoviesData(filteredMovies)
         saveDataToLocalStorage(filteredMovies, shortMoviesChecked)
+        return filteredMovies
       }
     } catch (e) {
       console.log(e)
@@ -166,13 +169,14 @@ function App() {
   //Отфильтровать карточки
   function filterMovies(searchValue, movies) {
     let filteredMovies = filterAllMovies(searchValue, movies, shortMoviesChecked)
+    let shorts = filterShorts(filteredMovies) 
     localStorage.setItem('searchValue', searchValue)
     if (filteredMovies.length > 0 && searchValue.length > 0) {
       setCardsLoading(true)
       setIsDisabledInput(false)
       return filteredMovies
     } else {
-      setFilteredMoviesCards([])
+      setMoviesCards([])
       setCardsLoading(true)
       setIsDisabledInput(false)
       return []
@@ -182,11 +186,14 @@ function App() {
   //рендер карточек
     function renderMovies(movies) {
     let shorts = filterShorts(movies)
+    console.log(shorts)
     if (!shortMoviesChecked) {
       setMoviesCards(movies.slice(0, cardsColumns * cardsInRow))
+      setFilteredMoviesCards(savedMoviesData)
       hideAddBtn(movies)
     } else {
       setMoviesCards(shorts);
+      setFilteredMoviesCards(filterShorts(savedMoviesData))
       hideAddBtn(shorts)
     }
   }
@@ -205,6 +212,7 @@ function App() {
     }
   }
 
+
   //обработчик кнопки фильтраa
   function handleFilterbutton() {
     setShortMoviesCheked(!shortMoviesChecked)
@@ -213,8 +221,8 @@ function App() {
 
   //Обработчик searchForm хватаем JSON, рендерим карточки и прелоадер
   async function handleSearchForm(searchValue) {
-    await getAllMoviesData(searchValue)
-    renderMovies(filteredMoviesCards)
+    let movies = await getAllMoviesData(searchValue)
+    renderMovies(movies)
   }
 
   //Выставляем чекбокс при рендере
@@ -230,13 +238,10 @@ function App() {
   //рендер карточек из локального хранилища
   function renderMoviesFromLocalStorage() {
     setMoviesError('')
-    setAllCardsLoaded(true)
     let filteredMovies = JSON.parse(localStorage.getItem('movies'))
     setInitialCheckboxValue()
     if (filteredMovies) {
-      setAllCardsLoaded(false)
       handleMoviesErrors(filteredMovies)
-      setFilteredMoviesCards(filteredMovies)
       renderMovies(filteredMovies)
     } else {
       return
