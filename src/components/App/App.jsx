@@ -86,18 +86,19 @@ function App() {
     getUserInfo()
     getSavedMoviesData()
   }, [isLoggedIn])
-
+  
+  // useEffect(() => {
+  //   handleMoviesErrors(moviesCards)
+  // }, [moviesCards])
+  
   useEffect(() => {
-    rednerLocalOrFilteredCards()
+    renderLocalOrFilteredCards()
   }, [moviesData, shortMoviesChecked, cardsInRow, cardsColumns])
 
   useEffect(() => {
     hideAddBtn()
   }, [savedMovies, filteredMoviesCards])
   
-  useEffect(() => {
-    handleMoviesErrors(moviesCards)
-  }, [moviesCards])
 
   useEffect(() => {
     getSavedMovies()
@@ -106,6 +107,10 @@ function App() {
   useEffect(() => {
     renderSavedMovies()
   }, [likedMovies, savedMoviesData, savedShortMoviesChecked])
+
+  useEffect(() => {
+    handleMoviesErrors(moviesCards)
+  }, [moviesCards])
 
   useEffect(() => {
     handleSavedMoviesErrors(savedMovies)
@@ -179,7 +184,7 @@ function App() {
     }
   }
 
-  function rednerLocalOrFilteredCards() {
+  function renderLocalOrFilteredCards() {
     let movies = JSON.parse(localStorage.getItem('movies'))
     setInitialCheckboxValue()
     if (movies) {
@@ -383,16 +388,16 @@ function App() {
   //Регистрация + автологин
   async function handleRegister(name, email, password) {
     let result = await register(name, email, password)
-    isDisabledInput(true)
+    setIsDisabledInput(true)
     try {
       if (result.data) {
-        isDisabledInput(false)
+        setIsDisabledInput(false)
         setIsLoggedIn(true)
         setFormError('')
         await handleLogin(email, password)
         setCurrentUser(result.data)
       } else {
-        isDisabledInput(false)
+        setIsDisabledInput(false)
         setFormError(result.message)
       }
     }
@@ -447,6 +452,8 @@ function App() {
     setMoviesCards([])
     setCurrentUser({})
     setSavedMovies([])
+    setMoviesData([])
+    setSuccesseMessage('')
 
   }
 
