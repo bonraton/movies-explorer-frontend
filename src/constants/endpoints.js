@@ -8,7 +8,7 @@ const PATHS = {
     signup: '/signup',
     signin: '/signin',
     profile: '/users/me',
-    accounte: '/profile',
+    account: '/profile',
     main: '/'
 }
 

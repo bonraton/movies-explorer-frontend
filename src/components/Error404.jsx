@@ -1,6 +1,5 @@
 import { useHistory } from 'react-router'
-import { withRouter } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom'
 
 function Error404() {
 

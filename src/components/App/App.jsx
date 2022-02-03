@@ -82,10 +82,18 @@ function App() {
   }, [windowWidth])
 
   useEffect(() => {
-    renderMovies(moviesData)
-    hideAddBtn(filteredMoviesCards)
-  }, [cardsColumns, cardsInRow, moviesData, shortMoviesChecked])
+    tokenCheck()
+    getUserInfo()
+    getSavedMoviesData()
+  }, [isLoggedIn])
 
+  useEffect(() => {
+    rednerLocalOrFilteredCards()
+  }, [moviesData, shortMoviesChecked, cardsInRow, cardsColumns])
+
+  useEffect(() => {
+    hideAddBtn()
+  }, [savedMovies, filteredMoviesCards])
   
   useEffect(() => {
     handleMoviesErrors(moviesCards)
@@ -103,17 +111,6 @@ function App() {
     handleSavedMoviesErrors(savedMovies)
   }, [savedMovies])
 
-  useEffect(() => {
-    tokenCheck()
-    getUserInfo()
-    getSavedMoviesData()
-  }, [isLoggedIn])
-
-  useEffect(() => {
-    renderMoviesFromLocalStorage()
-  }, [isLoggedIn, shortMoviesChecked, cardsColumns, cardsInRow])
-
-  
   //LISTENERS
   window.addEventListener('resize', () => {
     setTimeout(resizeWindow, 1000)
@@ -169,7 +166,6 @@ function App() {
   //Отфильтровать карточки
   function filterMovies(searchValue, movies) {
     let filteredMovies = filterAllMovies(searchValue, movies, shortMoviesChecked)
-    let shorts = filterShorts(filteredMovies) 
     localStorage.setItem('searchValue', searchValue)
     if (filteredMovies.length > 0 && searchValue.length > 0) {
       setCardsLoading(true)
@@ -183,18 +179,25 @@ function App() {
     }
   }
 
+  function rednerLocalOrFilteredCards() {
+    let movies = JSON.parse(localStorage.getItem('movies'))
+    setInitialCheckboxValue()
+    if (movies) {
+      renderMovies(movies)
+    } else {
+      renderMovies(moviesData)
+    }
+  }
+
   //рендер карточек
     function renderMovies(movies) {
     let shorts = filterShorts(movies)
-    console.log(shorts)
     if (!shortMoviesChecked) {
       setMoviesCards(movies.slice(0, cardsColumns * cardsInRow))
-      setFilteredMoviesCards(savedMoviesData)
-      hideAddBtn(movies)
+      setFilteredMoviesCards(movies)
     } else {
       setMoviesCards(shorts);
-      setFilteredMoviesCards(filterShorts(savedMoviesData))
-      hideAddBtn(shorts)
+      setFilteredMoviesCards(shorts)
     }
   }
 
@@ -204,8 +207,8 @@ function App() {
   }
 
   //прячем кнопку ещё
-  function hideAddBtn(movies) {
-      if (movies.length <= (moviesCards.length)) {
+  function hideAddBtn() {
+      if (filteredMoviesCards.length <= (moviesCards.length)) {
       setAllCardsLoaded(true)
     } else {
       setAllCardsLoaded(false)
@@ -232,19 +235,6 @@ function App() {
       setShortMoviesCheked(true)
     } else {
       setShortMoviesCheked(false)
-    }
-  }
-
-  //рендер карточек из локального хранилища
-  function renderMoviesFromLocalStorage() {
-    setMoviesError('')
-    let filteredMovies = JSON.parse(localStorage.getItem('movies'))
-    setInitialCheckboxValue()
-    if (filteredMovies) {
-      handleMoviesErrors(filteredMovies)
-      renderMovies(filteredMovies)
-    } else {
-      return
     }
   }
 
@@ -422,7 +412,7 @@ function App() {
         localStorage.setItem('jwt', result.token)
         setFormError('')
         setIsDisabledInput(false)
-        history.push(PATHS.movies)
+        history.push('/movies')
       } else {
         setFormError(result.message)
         setIsDisabledInput(false)
@@ -517,7 +507,7 @@ function App() {
           </Header>
           <SearchForm
             component={SearchForm}
-            // isLoggedIn={isLoggedIn}
+            isLoggedIn={isLoggedIn}
             onSubmit={handleSavedMoviesSearch}
             onFilterChange={handleFilterButtonSavedMovies}
             isChecked={savedShortMoviesChecked}
@@ -526,7 +516,7 @@ function App() {
           </SearchForm>
           <SavedMovies
             hiddenAddBtn='movie__btn-container_hidden'
-            // isLoggedIn={isLoggedIn}
+            isLoggedIn={isLoggedIn}
             error={savedMoviesError}
             onAddMore={handleLoadMoreCards}
             isLoading={cardsLoading}
@@ -567,7 +557,8 @@ function App() {
             onSubmit={handleRegister} />
         </Route>
         {/* 6.PROFILE  */}
-        <ProtectedRoute path={PATHS.account} isLoggedIn={isLoggedIn}>
+        <ProtectedRoute path={PATHS.account}>
+        {!isLoggedIn ? <Redirect to={PATHS.movies} /> : <Redirect to={PATHS.account} />}
           <Header btnClass="header__btn_auth" isLoggedIn={isLoggedIn} />
           <Profile
             successe={successeMessage}

@@ -1,8 +1,11 @@
-import { Redirect, Route } from "react-router-dom/cjs/react-router-dom.min";
-const isLoggedIn = localStorage.getItem('isLoggedIn')
+import { Redirect, Route } from "react-router-dom";
+
+function getIsLoggedInValue() {
+    return localStorage.getItem('isLoggedIn')
+}
 
 const ProtectedRoute = (props) => {
-    return <Route path={props.path}>{isLoggedIn ? props.children : <Redirect to="./" />} </Route>
+    return <Route path={props.path}>{getIsLoggedInValue() ? props.children : <Redirect to="./" />} </Route>
 }
 
 export default ProtectedRoute
