@@ -1,4 +1,4 @@
-import {BASE_URL, endpoints} from "../constants/endpoints"
+import {BASE_URL, PATHS} from "../constants/endpoints"
 
 const getResponseData = (result) => {
     if (result.ok) {
@@ -9,7 +9,7 @@ const getResponseData = (result) => {
 }
 
 export async function register(name, email, password) {
-    const promise = await fetch(`${BASE_URL}${endpoints.signup}`, {
+    const promise = await fetch(`${BASE_URL}${PATHS.signup}`, {
         'method': 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export async function register(name, email, password) {
 }
 
 export async function login(email, password) {
-    const promise = await fetch(`${BASE_URL}${endpoints.signin}`, {
+    const promise = await fetch(`${BASE_URL}${PATHS.signin}`, {
         'method': 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export async function login(email, password) {
 }
 
 export const getUserContent = (jwt) => {
-    return fetch(`${BASE_URL}${endpoints.profile}`, {
+    return fetch(`${BASE_URL}${PATHS.profile}`, {
         method: "GET",
         headers: {
             'Accept': "application/json",
@@ -66,7 +66,7 @@ export const getUserContent = (jwt) => {
 }
 
 export const getSavedMoviesContent = (jwt) => {
-    return fetch(`${BASE_URL}${endpoints.movies}`, {
+    return fetch(`${BASE_URL}${PATHS.movies}`, {
         method: "GET",
         headers: {
             'Accept': "application/json",

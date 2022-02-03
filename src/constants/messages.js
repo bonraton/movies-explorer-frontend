@@ -15,5 +15,9 @@ const searchFormErrors = {
       addMovieError: 'Вы не можете добавить данный фильм'
   }
 
+  const successeMessages = {
+    profile: 'Данные успешно изменены'
+}
 
-  export { searchFormErrors, validationErrors }
+
+  export { searchFormErrors, validationErrors, successeMessages}

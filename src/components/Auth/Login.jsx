@@ -52,7 +52,7 @@ function Login(props) {
           Войти
         </button>
         <p className="auth-form__text">Еще не зарегистрированы?
-          <Link onClick={props.resetError} to="/signup" className="auth-form__link">
+          <Link to="/signup" className="auth-form__link">
             Регистрация
           </Link>
         </p>

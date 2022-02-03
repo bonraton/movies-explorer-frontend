@@ -3,9 +3,9 @@ import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList({ movie, isAdded, savedMovies, ...props }) {
 
-  function handleLike (movie) {
-    props.onCardLike(movie)
-  }
+  // function handleLike (movie) {
+  //   props.onCardLike(movie)
+  // }
 
   function handleLike (movie) {
     if (isAdded) {
@@ -44,12 +44,8 @@ function MoviesCardList({ movie, isAdded, savedMovies, ...props }) {
           link={movie.trailer}
           year={movie.year}
           description={movie.description}
-          trailer={movie.trailerLink}
           _id={movie._id}
-
           onClick={handleLike}
-          // handleLike={handleLike}
-          // handleDislike={handleDelete}
           onDelete={handleDelete}
           hiddenDeleteBtn={props.hiddenDeleteBtn}
           hiddenAddBtn={props.hiddenAddBtn}

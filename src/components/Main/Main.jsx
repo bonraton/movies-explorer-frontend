@@ -3,8 +3,9 @@ import AboutProject from './AboutProject';
 import Techs from './Techs';
 import AboutMe from './AboutMe';
 import Portfolio from './Portfolio';
+import { withRouter } from 'react-router-dom';
 
-export default function Main() {
+function Main() {
     return (
         <div>
             <Promo />
@@ -15,3 +16,5 @@ export default function Main() {
         </div>
     );
 };
+
+export default withRouter(Main)

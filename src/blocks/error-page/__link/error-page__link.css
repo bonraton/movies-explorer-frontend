@@ -5,6 +5,7 @@
     margin-top: 184px;
     transition: .4s;
     color: #3456F3;
+    cursor: pointer;
 }
 
 .error-page__link:hover {

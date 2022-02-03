@@ -70,7 +70,7 @@ export default function Register(props) {
                     Зарегистрироваться
                 </button>
                 <p className="auth-form__text">Уже зарегистрированы?
-                    <Link onClick={props.resetError} to="signin" className="auth-form__link"> Войти</Link>
+                    <Link to="signin" className="auth-form__link"> Войти</Link>
                 </p>
             </div>
         </form>

@@ -1,6 +1,8 @@
+import { BEATFILM_URL } from "../constants/endpoints";
+
 export default class MoviesApi {
     constructor() {
-        this._url = 'https://api.nomoreparties.co/beatfilm-movies';
+        this._url = BEATFILM_URL;
     }
 
     getMoviesData() {

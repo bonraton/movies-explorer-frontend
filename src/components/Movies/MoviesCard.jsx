@@ -9,7 +9,6 @@ function MoviesCard({ movie, isAdded, ...props } ) {
   //SAVE
   function saveOrDeleteMovie () {
     props.onClick(props)
-    // !isAdded ? props.handleLike(props) : props.handleDislike(props)
   }
 
   //DELETE

@@ -1,4 +1,4 @@
-import { endpoints, BASE_URL } from "../constants/endpoints";
+import { PATHS, BASE_URL } from "../constants/endpoints";
 
 function getJwtFromLocal() {
     return localStorage.getItem('jwt')
@@ -12,7 +12,7 @@ const getResponseData = (result) => {
 }
 
 export async function getUser() {
-    let promise = await fetch(`${BASE_URL}${endpoints.profile}`, {
+    let promise = await fetch(`${BASE_URL}${PATHS.profile}`, {
         'method': 'GET',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,
@@ -27,7 +27,7 @@ export async function getUser() {
 }
 
 export function updateUser(name, email) {
-    return fetch(`${BASE_URL}${endpoints.profile}`, {
+    return fetch(`${BASE_URL}${PATHS.profile}`, {
         'method': 'PATCH',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,
@@ -46,7 +46,7 @@ export function updateUser(name, email) {
 //addMovie
 export async function saveMovie(movie) {
     try {
-        let promise = await fetch(`${BASE_URL}${endpoints.movies}`, {
+        let promise = await fetch(`${BASE_URL}${PATHS.movies}`, {
             'method': 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,8 +57,6 @@ export async function saveMovie(movie) {
                 nameRU: movie.nameRU,
                 nameEN: !movie.nameEN ? 'undefined' : movie.nameEN,
                 country: !movie.country ? 'undefined' : movie.country,
-                // nameEN: movie.nameEN,
-                // country: movie.country,
                 director: movie.director,
                 thumbnail: movie.thumbnail,
                 duration: movie.duration,
@@ -79,7 +77,7 @@ export async function saveMovie(movie) {
 }
 
 export async function removeMovie(data) {
-    let promise = await fetch(`${BASE_URL}${endpoints.movies}/${data}`, {
+    let promise = await fetch(`${BASE_URL}${PATHS.movies}/${data}`, {
         'method': 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -95,7 +93,7 @@ export async function removeMovie(data) {
 }
 
 export async function getSavedMoviesData(userId) {
-    let promise = await fetch(`${BASE_URL}${endpoints.movies}`, {
+    let promise = await fetch(`${BASE_URL}${PATHS.movies}`, {
         'method': 'GET',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,

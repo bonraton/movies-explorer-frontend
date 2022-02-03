@@ -17,9 +17,9 @@ export default function SearchForm({ ...props }) {
   }, [])
 
   function setInitialValue () {
-    const value = localStorage.getItem('searchValue');
+    const moviesSearchValue = localStorage.getItem('searchValue');
     setState({
-      moviesValue: value
+      moviesValue: moviesSearchValue
     })
   }
 
@@ -29,11 +29,13 @@ export default function SearchForm({ ...props }) {
   }
 
   function setInputValue(e) {
+    const moviesSearchValue = localStorage.getItem('searchValue');
+    const savedMoviesSearchValue = localStorage.getItem('savedSearchValue')
     const value = e.target.value;
     if (history.location.pathname === '/movies') {
-    setState({ moviesValue: value})
+    setState({ moviesValue: value, savedMoviesValue: savedMoviesSearchValue})
   } else {
-    setState({ savedMoviesValue: value })
+    setState({ savedMoviesValue: value, moviesValue: moviesSearchValue})
   }
 }
 
