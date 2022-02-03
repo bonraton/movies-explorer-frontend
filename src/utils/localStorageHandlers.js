@@ -1,7 +1,6 @@
 function clearLocalStorageData() {
     localStorage.removeItem('jwt')
     localStorage.removeItem('movies')
-    localStorage.removeItem('shortMovies')
     localStorage.removeItem('checkBox')
     localStorage.removeItem('moviesSearchValue')
     localStorage.removeItem('searchValue')
@@ -10,9 +9,8 @@ function clearLocalStorageData() {
     localStorage.removeItem('savedSearchValue')
 }
 
-function saveDataToLocalStorage(movies, shortMovies, shortMoviesChecked) {
+function saveDataToLocalStorage(movies, shortMoviesChecked) {
     localStorage.setItem('movies', JSON.stringify(movies))
-    localStorage.setItem('shortMovies', JSON.stringify(shortMovies))
     localStorage.setItem('shortsCheckbox', shortMoviesChecked)
   }
 

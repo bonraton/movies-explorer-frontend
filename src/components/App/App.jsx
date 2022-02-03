@@ -85,11 +85,12 @@ function App() {
   }, [isLoggedIn])
   
   useEffect(() => {
-    renderMovies(filteredMoviesCards, shortMoviesCards)
-  }, [cardsColumns, cardsInRow, filteredMoviesCards, shortMoviesCards, shortMoviesChecked])
+    renderMovies(filteredMoviesCards)
+  }, [cardsColumns, cardsInRow, filteredMoviesCards, shortMoviesChecked])
 
   useEffect(() => {
     handleMoviesErrors(moviesCards)
+    hideAddBtn(filteredMoviesCards)
   }, [moviesCards])
 
   useEffect(() => {
@@ -154,10 +155,8 @@ function App() {
           return movieObject(movie, `https://api.nomoreparties.co${movie.image.url}`)
         })
         let filteredMovies = filterMovies(searchValue, movies)
-        let shorts = filterShorts(filteredMovies, shortMoviesChecked)
         setFilteredMoviesCards(filteredMovies)
-        setShortMoviesCards(shorts)
-        saveDataToLocalStorage(filteredMovies, shorts, shortMoviesChecked)
+        saveDataToLocalStorage(filteredMovies, shortMoviesChecked)
       }
     } catch (e) {
       console.log(e)
@@ -181,7 +180,8 @@ function App() {
   }
 
   //рендер карточек
-  function renderMovies(movies, shorts) {
+    function renderMovies(movies) {
+    let shorts = filterShorts(movies)
     if (!shortMoviesChecked) {
       setMoviesCards(movies.slice(0, cardsColumns * cardsInRow))
       hideAddBtn(movies)
@@ -197,9 +197,8 @@ function App() {
   }
 
   //прячем кнопку ещё
-  function hideAddBtn() {
-    // if (movies.length <= movies.slice(0, cardsColumns * cardsInRow).length) {
-      if (filteredMoviesCards.length <= (cardsColumns * cardsInRow)) {
+  function hideAddBtn(movies) {
+      if (movies.length <= (moviesCards.length)) {
       setAllCardsLoaded(true)
     } else {
       setAllCardsLoaded(false)
@@ -215,7 +214,7 @@ function App() {
   //Обработчик searchForm хватаем JSON, рендерим карточки и прелоадер
   async function handleSearchForm(searchValue) {
     await getAllMoviesData(searchValue)
-    renderMovies(filteredMoviesCards, shortMoviesCards)
+    renderMovies(filteredMoviesCards)
   }
 
   //Выставляем чекбокс при рендере
@@ -233,14 +232,12 @@ function App() {
     setMoviesError('')
     setAllCardsLoaded(true)
     let filteredMovies = JSON.parse(localStorage.getItem('movies'))
-    let shortMovies = JSON.parse(localStorage.getItem('shortMovies'))
     setInitialCheckboxValue()
     if (filteredMovies) {
       setAllCardsLoaded(false)
       handleMoviesErrors(filteredMovies)
       setFilteredMoviesCards(filteredMovies)
-      setShortMoviesCards(shortMovies)
-      renderMovies(filteredMovies, shortMovies)
+      renderMovies(filteredMovies)
     } else {
       return
     }
