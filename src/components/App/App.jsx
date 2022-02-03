@@ -296,6 +296,7 @@ function App() {
       if (savedMovie.data) {
         setSavedMoviesData([...savedMovies, savedMovie.data])
         setLikedMovies([...likedMovies, savedMovie.data])
+        console.log(savedMovie.data)
       }
       else {
         console.log(validationErrors.addMovieError, savedMovie.message)
@@ -345,11 +346,9 @@ function App() {
     if (!moviesData) {
       console.log(searchFormErrors.notFoundError)
     } else {
-      let savedMovies = moviesData.map((movie) => {
-        return movieObject(movie, movie.image)
-      })
-      setLikedMovies(savedMovies)
-      setSavedMoviesData(savedMovies)
+      console.log(savedMovies)
+      setLikedMovies(moviesData)
+      setSavedMoviesData(moviesData)
       return savedMovies
     }
   }
