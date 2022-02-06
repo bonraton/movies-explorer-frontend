@@ -1,0 +1,11 @@
+.popup-message__container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: white;
+    margin: auto;
+    width: 400px;
+    border: 2px solid black;
+    border-radius: 20px;
+    height: 160px;
+}
