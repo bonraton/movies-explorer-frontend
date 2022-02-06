@@ -52,8 +52,6 @@ export default function Profile(props) {
           onChange={handleEmailInput}
           isValidated={isEmailValid}
           span={userContext.email} />
-        {/* <p className='profile__message profile__message_error'>{props.formError}</p> */}
-        {/* <p className='profile__message'>{props.successe}</p> */}
         <div className="profile__button-container">
           <button onSubmit={handleSubmit}
             type="submit"
