@@ -3,11 +3,12 @@ import { PATHS, BASE_URL } from "../constants/endpoints";
 function getJwtFromLocal() {
     return localStorage.getItem('jwt')
 }
+
 const getResponseData = (result) => {
     if (result.ok) {
         return result.json()
     } else {
-        return Promise.reject(result)
+        return Promise.reject(result.json())
     }
 }
 
@@ -19,15 +20,11 @@ export async function getUser() {
         }
     });
     let result = await getResponseData(promise)
-    try {
-        return result
-    } catch (e) {
-        console.log(e)
-    }
+    return result
 }
 
-export function updateUser(name, email) {
-    return fetch(`${BASE_URL}${PATHS.profile}`, {
+export async function updateUser(name, email) {
+    const promise = await fetch(`${BASE_URL}${PATHS.profile}`, {
         'method': 'PATCH',
         headers: {
             'Authorization': `Bearer ${getJwtFromLocal()}`,
@@ -37,15 +34,13 @@ export function updateUser(name, email) {
             name: name,
             email: email
         })
-    }).then((result) => getResponseData(result))
-        .catch((error) => {
-            return error.json()
-        })
+    })
+    const result = await getResponseData(promise)
+    return result
 }
 
 //addMovie
 export async function saveMovie(movie) {
-    try {
         let promise = await fetch(`${BASE_URL}${PATHS.movies}`, {
             'method': 'POST',
             headers: {
@@ -55,8 +50,8 @@ export async function saveMovie(movie) {
             body: JSON.stringify({
                 movieId: movie.movieId,
                 nameRU: movie.nameRU,
-                nameEN: !movie.nameEN ? 'undefined' : movie.nameEN,
-                country: !movie.country ? 'undefined' : movie.country,
+                nameEN: !movie.nameEN,
+                country: !movie.country,
                 director: movie.director,
                 thumbnail: movie.thumbnail,
                 duration: movie.duration,
@@ -69,15 +64,10 @@ export async function saveMovie(movie) {
         })
         let result = await getResponseData(promise);
         return result
-    } catch (e) {
-        let error = await e.json()
-        console.log(error.error, error.statusCode)
-        return error
-    }
 }
 
 export async function removeMovie(data) {
-    let promise = await fetch(`${BASE_URL}${PATHS.movies}/${data}`, {
+    const promise = await fetch(`${BASE_URL}${PATHS.movies}/${data}`, {
         'method': 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -85,11 +75,7 @@ export async function removeMovie(data) {
         },
     })
     let result = await getResponseData(promise);
-    try {
-        return result
-    } catch (e) {
-        console.log(e)
-    }
+    return result
 }
 
 export async function getSavedMoviesData(userId) {
@@ -100,12 +86,7 @@ export async function getSavedMoviesData(userId) {
         },
     })
     let result = await getResponseData(promise)
-    try {
-        return await result.data.filter((movie) => {
-            return movie.owner === userId
-        })
-    } catch (e) {
-        console.log(e)
-    }
-
+    return await result.data.filter((movie) => {
+        return movie.owner === userId
+    })
 }
