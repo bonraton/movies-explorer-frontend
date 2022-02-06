@@ -291,7 +291,6 @@ function App() {
       try {
         let userInfo = await updateUser(name, email);
           setCurrentUser(userInfo.data)
-          setFormError('')
           setPopupMessage(successeMessages.profile)
           setPopupIsOpened(true)
           // setSuccesseMessage(successeMessages.profile)
@@ -408,7 +407,6 @@ function App() {
         let result = await register(name, email, password)
           setIsLoggedIn(true)
           setIsDisabledInput(false)
-          // setFormError('')
           await handleLogin(email, password)
           setCurrentUser(result.data)
       }
@@ -428,8 +426,6 @@ function App() {
         setIsLoggedIn(true)
         localStorage.setItem('isLoggedIn', true)
         localStorage.setItem('jwt', result.token)
-        // setPopupIsOpened(true)
-        // setFormError('')
         setIsDisabledInput(false)
         history.push('/movies')
     }
@@ -437,7 +433,6 @@ function App() {
       const error = await e
       setPopupIsOpened(true)
         setPopupMessage(error.message)
-        // setFormError(result.message)
         setIsDisabledInput(false)
     }
   }
