@@ -28,6 +28,7 @@ import { PATHS } from '../../constants/endpoints';
 //UTILS
 import { filterAllMovies, filterShorts } from '../../utils/filter';
 import { clearLocalStorageData, saveDataToLocalStorage } from '../../utils/localStorageHandlers';
+import { getSearchError, getInitialError } from '../../utils/errorHandlers';
 
 //API
 import MoviesApi from '../../utils/MoviesApi';
@@ -44,7 +45,7 @@ function App() {
   const [moviesData, setMoviesData] = useState([])
   const [moviesCards, setMoviesCards] = useState([])
   const [filteredMoviesCards, setFilteredMoviesCards] = useState([])
-  const [shortMoviesCards, setShortMoviesCards] = useState([])
+  // const [shortMoviesCards, setShortMoviesCards] = useState([])
   const [shortMoviesChecked, setShortMoviesCheked] = useState(Boolean)
 
   const [allCardsLoaded, setAllCardsLoaded] = useState(true);
@@ -63,8 +64,8 @@ function App() {
 
   //Errors
   const [formError, setFormError] = useState('')
-  const [savedMoviesError, setSavedMoviesError] = useState('')
-  const [moviesError, setMoviesError] = useState('')
+  const [savedMoviesError, setSavedMoviesError] = useState({ long: '', shorts: '' })
+  const [moviesError, setMoviesError] = useState({ long: '', shorts: '' })
   const [successeMessage, setSuccesseMessage] = useState('')
 
   //DisableInputs
@@ -86,11 +87,7 @@ function App() {
     getUserInfo()
     getSavedMoviesData()
   }, [isLoggedIn])
-  
-  // useEffect(() => {
-  //   handleMoviesErrors(moviesCards)
-  // }, [moviesCards])
-  
+    
   useEffect(() => {
     renderLocalOrFilteredCards()
   }, [moviesData, shortMoviesChecked, cardsInRow, cardsColumns])
@@ -98,7 +95,6 @@ function App() {
   useEffect(() => {
     hideAddBtn()
   }, [savedMovies, filteredMoviesCards])
-  
 
   useEffect(() => {
     getSavedMovies()
@@ -109,12 +105,17 @@ function App() {
   }, [likedMovies, savedMoviesData, savedShortMoviesChecked])
 
   useEffect(() => {
-    handleMoviesErrors(moviesCards)
-  }, [moviesCards])
+    setInitialMoviesErrors(moviesCards)
+  }, [isLoggedIn])
 
   useEffect(() => {
-    handleSavedMoviesErrors(savedMovies)
-  }, [savedMovies])
+    setInitialSavedMoviesErrors(likedMovies)
+  }, [isLoggedIn, likedMovies])
+
+  // useEffect(() => {
+  //   handlesavedMoviesShortsError(likedMovies)
+  //   console.log(likedMovies)
+  // }, [isLoggedIn, likedMovies])
 
   //LISTENERS
   window.addEventListener('resize', () => {
@@ -231,6 +232,7 @@ function App() {
   async function handleSearchForm(searchValue) {
     let movies = await getAllMoviesData(searchValue)
     renderMovies(movies)
+    handleMoviesErrors(movies)
   }
 
   //Выставляем чекбокс при рендере
@@ -243,22 +245,29 @@ function App() {
     }
   }
 
-  //Обработчики ошибок фильмов
-  function handleMoviesErrors(movies) {
-    if (movies.length < 1) {
-      setMoviesError(searchFormErrors.notFoundError)
-    } else {
-      setMoviesError()
-    }
+  
+  function setInitialSavedMoviesErrors (movies) {
+    const error  = getInitialError(movies)
+    setSavedMoviesError({ long: error.long, shorts: error.shorts })
   }
 
   function handleSavedMoviesErrors(movies) {
-    if (movies.length < 1) {
-      setSavedMoviesError(searchFormErrors.notFoundError)
-    } else {
-      setSavedMoviesError('')
-    }
+    const error = getSearchError(movies)
+    setSavedMoviesError({ long: error.long, shorts: error.shorts })
   }
+
+  function setInitialMoviesErrors (movies) {
+    const error = getInitialError(movies)
+    setMoviesError({ long: error.long, shorts: error.shorts })
+  }
+
+  function handleMoviesErrors (movies) {
+    const error = getSearchError(movies)
+    setMoviesError({ long: error.long, shorts: error.shorts })
+  }
+
+  const moviesSearchError = shortMoviesChecked ? moviesError.shorts : moviesError.long
+  const savedMoviesSearchEror = savedShortMoviesChecked ? savedMoviesError.shorts : savedMoviesError.long
 
   //Берем данные юзера
   async function getUserInfo() {
@@ -346,10 +355,9 @@ function App() {
     if (!moviesData) {
       console.log(searchFormErrors.notFoundError)
     } else {
-      console.log(savedMovies)
       setLikedMovies(moviesData)
       setSavedMoviesData(moviesData)
-      return savedMovies
+      return moviesData
     }
   }
 
@@ -382,6 +390,7 @@ function App() {
     let moviesData = await getSavedMovies()
     let filteredMovies = await filterSavedMovies(searchValue, moviesData)
     setSavedMoviesData(filteredMovies)
+    handleSavedMoviesErrors(filteredMovies)
   }
 
   //Регистрация + автологин
@@ -484,6 +493,7 @@ function App() {
             isLoggedIn={isLoggedIn}>
           </Header>
           <SearchForm
+            isDisabled={isDisabledInput}
             isChecked={shortMoviesChecked}
             onFilterChange={handleFilterbutton}
             isRequesting={isDisabledInput}
@@ -494,7 +504,7 @@ function App() {
             component={MoviesCardList}
             hiddenDeleteBtn='movie__delete-btn_hidden'
             isLoggedIn={isLoggedIn}
-            error={moviesError}
+            error={moviesSearchError}
             onAddMore={handleLoadMoreCards}
             movies={moviesCards}
             isLoading={cardsLoading}
@@ -521,9 +531,10 @@ function App() {
             name='savedMoviesValue'>
           </SearchForm>
           <SavedMovies
+            isDisabled={isDisabledInput}
             hiddenAddBtn='movie__btn-container_hidden'
             isLoggedIn={isLoggedIn}
-            error={savedMoviesError}
+            error={savedMoviesSearchEror}
             onAddMore={handleLoadMoreCards}
             isLoading={cardsLoading}
             isLoaded={allCardsLoaded}
@@ -564,7 +575,6 @@ function App() {
         </Route>
         {/* 6.PROFILE  */}
         <ProtectedRoute path={PATHS.account}>
-        {!isLoggedIn ? <Redirect to={PATHS.movies} /> : <Redirect to={PATHS.account} />}
           <Header btnClass="header__btn_auth" isLoggedIn={isLoggedIn} />
           <Profile
             successe={successeMessage}

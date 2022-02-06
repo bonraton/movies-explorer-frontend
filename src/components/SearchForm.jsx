@@ -59,7 +59,7 @@ export default function SearchForm({ ...props }) {
             value={value || ''} >
           </input>
           <div className="search-form__button-container">
-            <button className="search-form__button">Найти</button>
+            <button disabled={props.isDisabled} className="search-form__button">Найти</button>
           </div>
         </div>
       </form>

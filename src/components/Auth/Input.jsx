@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 export default function Input(props) {
 
+
     useEffect(() => {
         hideInputSpan()
     }, [props.value])
@@ -10,11 +11,7 @@ export default function Input(props) {
     const [hiddenSpanInput, setHiddenSpanInput] = useState(false);
 
     function hideInputSpan() {
-        if (props.value.length > 0) {
-            setHiddenSpanInput(true)
-        } else {
-            setHiddenSpanInput(false)
-        }
+            (props.value) ? setHiddenSpanInput(true) :setHiddenSpanInput(false)
     }
 
     return (
