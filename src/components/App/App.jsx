@@ -10,6 +10,7 @@ import SearchForm from '../SearchForm';
 import MoviesCardList from '../Movies/MoviesCardList';
 import Profile from '../Auth/Profile';
 import Register from '../Auth/Register';
+import PopupMessage from '../PopupMessage';
 import Login from '../Auth/Login';
 import Error404 from '../Error404';
 import Header from '../Header';
@@ -45,7 +46,6 @@ function App() {
   const [moviesData, setMoviesData] = useState([])
   const [moviesCards, setMoviesCards] = useState([])
   const [filteredMoviesCards, setFilteredMoviesCards] = useState([])
-  // const [shortMoviesCards, setShortMoviesCards] = useState([])
   const [shortMoviesChecked, setShortMoviesCheked] = useState(Boolean)
 
   const [allCardsLoaded, setAllCardsLoaded] = useState(true);
@@ -68,6 +68,9 @@ function App() {
   const [moviesError, setMoviesError] = useState({ long: '', shorts: '' })
   const [successeMessage, setSuccesseMessage] = useState('')
 
+  const [popupMessage, setPopupMessage] = useState('')
+  const [popupIsOpened, setPopupIsOpened] = useState(false)
+
   //DisableInputs
   const [isDisabledInput, setIsDisabledInput] = useState(false)
 
@@ -84,17 +87,20 @@ function App() {
 
   useEffect(() => {
     tokenCheck()
-    getUserInfo()
     getSavedMoviesData()
   }, [isLoggedIn])
+
+  useEffect(() => {
+    getUserInfo()
+  }, [])
     
   useEffect(() => {
     renderLocalOrFilteredCards()
   }, [moviesData, shortMoviesChecked, cardsInRow, cardsColumns])
 
   useEffect(() => {
-    hideAddBtn()
-  }, [savedMovies, filteredMoviesCards])
+    hideAddBtn(filteredMoviesCards)
+  }, [moviesCards, filteredMoviesCards])
 
   useEffect(() => {
     getSavedMovies()
@@ -141,15 +147,15 @@ function App() {
     }
   }
 
-
   // БЕРЕМ Все карточки с API
   async function getAllMoviesData(searchValue) {
+    setIsDisabledInput(true)
     try {
       setCardsLoading(false)
-      setIsDisabledInput(true)
       let data = await Api.getMoviesData();
       if (!data) {
         setMoviesError(searchFormErrors.searchInternalError)
+        setIsDisabledInput(false)
       } else {
         let movies = data.map((movie) => {
           return movieObject(movie, `https://api.nomoreparties.co${movie.image.url}`)
@@ -157,6 +163,7 @@ function App() {
         let filteredMovies = filterMovies(searchValue, movies)
         setMoviesData(filteredMovies)
         saveDataToLocalStorage(filteredMovies, shortMoviesChecked)
+        setIsDisabledInput(false)
         return filteredMovies
       }
     } catch (e) {
@@ -190,8 +197,7 @@ function App() {
     }
   }
 
-  //рендер карточек
-    function renderMovies(movies) {
+  function renderMovies(movies) {
     let shorts = filterShorts(movies)
     if (!shortMoviesChecked) {
       setMoviesCards(movies.slice(0, cardsColumns * cardsInRow))
@@ -207,13 +213,12 @@ function App() {
     setCardsColumns(cardsColumns + 1)
   }
 
-  //прячем кнопку ещё
-  function hideAddBtn() {
-      if (filteredMoviesCards.length <= (moviesCards.length)) {
-      setAllCardsLoaded(true)
-    } else {
-      setAllCardsLoaded(false)
-    }
+  function hideAddBtn(movies) {
+    if (movies.length <= (moviesCards.length)) {
+          setAllCardsLoaded(true)
+        } else {
+          setAllCardsLoaded(false)
+        }
   }
 
 
@@ -276,47 +281,46 @@ function App() {
       setCurrentUser(user.data)
     }
     catch (e) {
-      console.log(e)
+      const error = await e
+      console.log(error)
+      console.error(error.message)
     }
   }
 
-  // Обновляем данные юзера
-  async function updateUserInfo(name, email) {
-    try {
-      let userInfo = await updateUser(name, email);
+    // Обновляем данные юзера
+    async function updateUserInfo(name, email) {
       setIsDisabledInput(true)
-      if (userInfo.data) {
-        setCurrentUser(userInfo.data)
-        setFormError('')
-        setSuccesseMessage(successeMessages.profile)
-        setIsDisabledInput(false)
-      } else {
-        setFormError(userInfo.message)
-        setIsDisabledInput(false)
+      try {
+        let userInfo = await updateUser(name, email);
+          setCurrentUser(userInfo.data)
+          setFormError('')
+          setPopupMessage(successeMessages.profile)
+          setPopupIsOpened(true)
+          // setSuccesseMessage(successeMessages.profile)
+          setIsDisabledInput(false)
+      } catch (e) {
+        const error = await e
+          setPopupIsOpened(false)
+          setPopupMessage(error.message)
+          setIsDisabledInput(false)
+          console.log(error.message)
       }
-    } catch (e) {
-      console.log(e)
     }
-  }
 
   async function addSavedMovie(movie) {
-    let savedMovie = await saveMovie(movie)
     try {
-      if (savedMovie.data) {
+      let savedMovie = await saveMovie(movie)
         setSavedMoviesData([...savedMovies, savedMovie.data])
         setLikedMovies([...likedMovies, savedMovie.data])
-        console.log(savedMovie.data)
-      }
-      else {
-        console.log(validationErrors.addMovieError, savedMovie.message)
-      }
     }
     catch (e) {
-      console.error(e)
+      const error = await e
+      setPopupIsOpened(true)
+      setPopupMessage('На сервере произошла ошибка, вы не можете сохранить данный фильм')
+      console.log(error.statusCode, error.message)
     }
   }
 
-  //Удалить фильм
   async function deleteCard(movie, data) {
     data = savedMoviesData.filter((c) => {
       return movie.movieId === c.movieId
@@ -329,11 +333,13 @@ function App() {
         })
         setSavedMoviesData(newArray)
         setLikedMovies(newArray)
-      } else {
+      } 
+      else {
         return
       }
     } catch (e) {
-      console.log(e)
+      const error = await e
+      console.log(error.message)
     }
   }
 
@@ -349,18 +355,22 @@ function App() {
     }
   }
 
-  //Запрос на сохраненные карточки
-  async function getSavedMovies() {
-    let moviesData = await getSavedMoviesData(currentUser._id)
-    if (!moviesData) {
-      console.log(searchFormErrors.notFoundError)
-    } else {
+   //Запрос на сохраненные карточки
+   async function getSavedMovies() {
+     setIsDisabledInput(true)
+     try {
+      let moviesData = await getSavedMoviesData(currentUser._id)
       setLikedMovies(moviesData)
       setSavedMoviesData(moviesData)
+      setIsDisabledInput(false)
       return moviesData
+    } catch (e) {
+      const error = await e
+      console.log(error.message)
+      setIsDisabledInput(false)
     }
   }
-
+  
   function renderSavedMovies() {
     let shorts = filterShorts(savedMoviesData)
     !savedShortMoviesChecked ? setSavedMovies(savedMoviesData) : setSavedMovies(shorts)
@@ -393,64 +403,59 @@ function App() {
     handleSavedMoviesErrors(filteredMovies)
   }
 
-  //Регистрация + автологин
-  async function handleRegister(name, email, password) {
-    let result = await register(name, email, password)
-    setIsDisabledInput(true)
-    try {
-      if (result.data) {
+    //Регистрация + автологин
+    async function handleRegister(name, email, password) {
+      setIsDisabledInput(true)
+      try {
+        let result = await register(name, email, password)
+          setIsLoggedIn(true)
+          setIsDisabledInput(false)
+          // setFormError('')
+          await handleLogin(email, password)
+          setCurrentUser(result.data)
+      }
+      catch (e) {
+        const error = await e
         setIsDisabledInput(false)
-        setIsLoggedIn(true)
-        setFormError('')
-        await handleLogin(email, password)
-        setCurrentUser(result.data)
-      } else {
-        setIsDisabledInput(false)
-        setFormError(result.message)
+        setIsLoggedIn(false)
+        setPopupIsOpened(true)
+        setPopupMessage(error.message)
       }
     }
-    catch (error) {
-      console.log(error)
-    }
-  }
 
-  // LOGIN
   async function handleLogin(email, password) {
-    let result = await login(email, password)
     setIsDisabledInput(true)
     try {
-      if (result.token) {
+      let result = await login(email, password)
         setIsLoggedIn(true)
         localStorage.setItem('isLoggedIn', true)
         localStorage.setItem('jwt', result.token)
-        setFormError('')
+        // setPopupIsOpened(true)
+        // setFormError('')
         setIsDisabledInput(false)
         history.push('/movies')
-      } else {
-        setFormError(result.message)
-        setIsDisabledInput(false)
-      }
     }
     catch (e) {
-      console.log(e)
+      const error = await e
+      setPopupIsOpened(true)
+        setPopupMessage(error.message)
+        // setFormError(result.message)
+        setIsDisabledInput(false)
     }
   }
 
-  //Проверяем токен при загрузке страницы
   async function tokenCheck() {
     try {
       const jwt = localStorage.getItem('jwt');
       let userContentResult = await getUserContent(jwt)
-      if (userContentResult) {
+      // if (userContentResult) {
         setIsLoggedIn(true);
         localStorage.setItem('isLoggedIn', true)
         setCurrentUser(userContentResult.data)
-      } else {
-        setIsLoggedIn(false);
-        return
-      }
     } catch (e) {
-      console.log(e)
+      const error = await e
+      setIsLoggedIn(false);
+      console.log(error.message)
     }
   }
 
@@ -462,7 +467,10 @@ function App() {
     setSavedMovies([])
     setMoviesData([])
     setSuccesseMessage('')
+  }
 
+  function closePopup() {
+    setPopupIsOpened(false)
   }
 
   // LOGOUT
@@ -514,6 +522,10 @@ function App() {
             savedMovies={likedMovies}
           >
           </MoviesCardList>
+          <PopupMessage 
+          text={popupMessage} 
+          isOpened={popupIsOpened}
+          onClose={closePopup}/>
         </ProtectedRoute>
         {/* SAVED MOVIES */}
         <ProtectedRoute path={PATHS.savedMovies} isLoggedIn={isLoggedIn}>
@@ -522,6 +534,7 @@ function App() {
             isLoggedIn={isLoggedIn}>
           </Header>
           <SearchForm
+            isDisabled={isDisabledInput}
             component={SearchForm}
             isLoggedIn={isLoggedIn}
             onSubmit={handleSavedMoviesSearch}
@@ -557,7 +570,11 @@ function App() {
             onSubmit={handleLogin}
             formError={formError}
             isDisabled={isDisabledInput} />
-        </Route>
+          <PopupMessage 
+          text={popupMessage} 
+          isOpened={popupIsOpened}
+          onClose={closePopup}/>
+         </Route>
         {/* {/* 5.REGISTER */}
         <Route path="/signup">
           {isLoggedIn ? <Redirect to={PATHS.movies} /> : <Redirect to={PATHS.signup} />}
@@ -572,6 +589,10 @@ function App() {
             isDisabled={isDisabledInput}
             formError={formError}
             onSubmit={handleRegister} />
+            <PopupMessage 
+          text={popupMessage} 
+          isOpened={popupIsOpened}
+          onClose={closePopup}/>
         </Route>
         {/* 6.PROFILE  */}
         <ProtectedRoute path={PATHS.account}>
@@ -582,8 +603,13 @@ function App() {
             onSubmit={updateUserInfo}
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
-            isDisabled={isDisabledInput}>
+            isDisabled={isDisabledInput}
+            >
           </Profile>
+          <PopupMessage 
+          text={popupMessage} 
+          isOpened={popupIsOpened}
+          onClose={closePopup}/>
         </ProtectedRoute>
         <Route path='*'>
           <Error404 isLoggedIn={isLoggedIn} />
