@@ -105,17 +105,12 @@ function App() {
   }, [likedMovies, savedMoviesData, savedShortMoviesChecked])
 
   useEffect(() => {
-    setInitialMoviesErrors(moviesCards)
+      setInitialMoviesErrors()
   }, [isLoggedIn])
 
   useEffect(() => {
     setInitialSavedMoviesErrors(likedMovies)
   }, [isLoggedIn, likedMovies])
-
-  // useEffect(() => {
-  //   handlesavedMoviesShortsError(likedMovies)
-  //   console.log(likedMovies)
-  // }, [isLoggedIn, likedMovies])
 
   //LISTENERS
   window.addEventListener('resize', () => {
@@ -256,9 +251,14 @@ function App() {
     setSavedMoviesError({ long: error.long, shorts: error.shorts })
   }
 
-  function setInitialMoviesErrors (movies) {
-    const error = getInitialError(movies)
-    setMoviesError({ long: error.long, shorts: error.shorts })
+  function setInitialMoviesErrors () {
+    const localStorageMovies = JSON.parse(localStorage.getItem('movies'))
+    if (localStorageMovies) {
+      const error = getInitialError(localStorageMovies)
+      setMoviesError({ long: error.long, shorts: error.shorts })
+    } else {
+      return 
+    }
   }
 
   function handleMoviesErrors (movies) {
