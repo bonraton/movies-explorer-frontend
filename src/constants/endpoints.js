@@ -1,6 +1,6 @@
-// const BASE_URL = 'https://api.movies.diploma.nomoredomains.rocks'
+const BASE_URL = 'https://api.movies.diploma.nomoredomains.rocks'
 const BEATFILM_URL = 'https://api.nomoreparties.co/beatfilm-movies'
-const BASE_URL = 'http://localhost:4000'
+// const BASE_URL = 'http://localhost:4000'
 
 const PATHS = {
     movies: '/movies',
