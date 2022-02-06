@@ -50,8 +50,8 @@ export async function saveMovie(movie) {
             body: JSON.stringify({
                 movieId: movie.movieId,
                 nameRU: movie.nameRU,
-                nameEN: !movie.nameEN,
-                country: !movie.country,
+                nameEN: movie.nameEN,
+                country: movie.country,
                 director: movie.director,
                 thumbnail: movie.thumbnail,
                 duration: movie.duration,

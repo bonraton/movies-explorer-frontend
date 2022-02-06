@@ -63,10 +63,8 @@ function App() {
   const [likedMovies, setLikedMovies] = useState([])
 
   //Errors
-  const [formError, setFormError] = useState('')
   const [savedMoviesError, setSavedMoviesError] = useState({ long: '', shorts: '' })
   const [moviesError, setMoviesError] = useState({ long: '', shorts: '' })
-  const [successeMessage, setSuccesseMessage] = useState('')
 
   const [popupMessage, setPopupMessage] = useState('')
   const [popupIsOpened, setPopupIsOpened] = useState(false)
@@ -568,7 +566,6 @@ function App() {
             btn='navbar__btn_hidden' />
           <Login
             onSubmit={handleLogin}
-            formError={formError}
             isDisabled={isDisabledInput} />
           <PopupMessage 
           text={popupMessage} 
@@ -587,7 +584,6 @@ function App() {
           />
           <Register
             isDisabled={isDisabledInput}
-            formError={formError}
             onSubmit={handleRegister} />
             <PopupMessage 
           text={popupMessage} 
@@ -598,8 +594,6 @@ function App() {
         <ProtectedRoute path={PATHS.account}>
           <Header btnClass="header__btn_auth" isLoggedIn={isLoggedIn} />
           <Profile
-            successe={successeMessage}
-            formError={formError}
             onSubmit={updateUserInfo}
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}

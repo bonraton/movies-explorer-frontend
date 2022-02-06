@@ -61,7 +61,7 @@ export default function Register(props) {
                 error={passwordError}
                 type="password"
             />
-            <p className="auth-form__error">{props.formError}</p>
+            {/* <p className="auth-form__error">{props.formError}</p> */}
             <div className="auth-form__btn-container">
                 <button
                     disabled={`${(!isPasswordValid || !isEmailValid || !isNameValid) ? 'disabled' : ''}`}

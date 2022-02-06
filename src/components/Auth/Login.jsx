@@ -44,7 +44,7 @@ function Login(props) {
         isValidated={isPasswordValid}
         error={passwordError}
       />
-      <p className="auth-form__error">{props.formError}</p>
+      {/* <p className="auth-form__error">{props.formError}</p> */}
       <div className="auth-form__btn-container">
         <button
           disabled={`${(!isPasswordValid || !isEmailValid) ? 'disabled' : ''}`}
