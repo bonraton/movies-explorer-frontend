@@ -300,7 +300,7 @@ function App() {
           setIsDisabledInput(false)
       } catch (e) {
         const error = await e
-          setPopupIsOpened(false)
+          setPopupIsOpened(true)
           setPopupMessage(error.message)
           setIsDisabledInput(false)
           console.log(error.message)
