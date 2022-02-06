@@ -293,7 +293,6 @@ function App() {
           setCurrentUser(userInfo.data)
           setPopupMessage(successeMessages.profile)
           setPopupIsOpened(true)
-          // setSuccesseMessage(successeMessages.profile)
           setIsDisabledInput(false)
       } catch (e) {
         const error = await e
@@ -459,7 +458,6 @@ function App() {
     setCurrentUser({})
     setSavedMovies([])
     setMoviesData([])
-    setSuccesseMessage('')
   }
 
   function closePopup() {
