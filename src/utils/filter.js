@@ -1,14 +1,4 @@
-// export function filterAllMovies(searchValue, movies, isChecked) {
-//     let filteredByNameRu = filterByNameRu(searchValue, movies)
-//     let filteredByNameEn = filterByNameEn(searchValue, movies)
-
-//     const regexpRu = /[а-яё]/gi
-//     if (searchValue.match(regexpRu)) {
-//         return filterShorts(filteredByNameRu, isChecked)
-//     } else {
-//         return filterShorts(filteredByNameEn, isChecked)
-//     }
-// }
+import { shortMoviesDuration } from '../constants/constant'
 
 export function filterAllMovies(searchValue, movies, isChecked) {
     let filteredByNameRu = filterByNameRu(searchValue, movies)
@@ -38,7 +28,7 @@ function filterByNameEn(searchValue, movies) {
 
 export function filterShorts(movies) {
     let filteredShorts = movies.filter((movie) => {
-        return (movie.duration <= 40)
+        return (movie.duration <= shortMoviesDuration)
     })
     return filteredShorts
 }

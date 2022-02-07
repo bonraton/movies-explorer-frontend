@@ -3,10 +3,6 @@ import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList({ movie, isAdded, savedMovies, ...props }) {
 
-  // function handleLike (movie) {
-  //   props.onCardLike(movie)
-  // }
-
   function handleLike (movie) {
     if (isAdded) {
       props.handleDislike(movie)

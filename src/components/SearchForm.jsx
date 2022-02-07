@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { localStorageConstants } from '../constants/constant';
+import { PATHS } from '../constants/endpoints';
 import { useHistory } from "react-router-dom";
 
 export default function SearchForm({ ...props }) {
@@ -10,14 +12,14 @@ export default function SearchForm({ ...props }) {
 
   const history = useHistory()
 
-  const value = history.location.pathname === '/movies' ? state.moviesValue : state.savedMoviesValue 
+  const value = history.location.pathname === PATHS.movies ? state.moviesValue : state.savedMoviesValue 
 
   useEffect(() => {
     setInitialValue()
   }, [])
 
   function setInitialValue () {
-    const moviesSearchValue = localStorage.getItem('searchValue');
+    const moviesSearchValue = localStorage.getItem(localStorageConstants.searchValue);
     setState({
       moviesValue: moviesSearchValue
     })
@@ -29,10 +31,10 @@ export default function SearchForm({ ...props }) {
   }
 
   function setInputValue(e) {
-    const moviesSearchValue = localStorage.getItem('searchValue');
+    const moviesSearchValue = localStorage.getItem(localStorageConstants.searchValue);
     const savedMoviesSearchValue = localStorage.getItem('savedSearchValue')
     const value = e.target.value;
-    if (history.location.pathname === '/movies') {
+    if (history.location.pathname === PATHS.movies) {
     setState({ moviesValue: value, savedMoviesValue: savedMoviesSearchValue})
   } else {
     setState({ savedMoviesValue: value, moviesValue: moviesSearchValue})

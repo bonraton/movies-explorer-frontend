@@ -4,8 +4,20 @@
     justify-content: center;
     background: white;
     margin: auto;
-    width: 400px;
+    width: 40%;
     border: 2px solid black;
     border-radius: 20px;
     height: 160px;
+}
+
+@media screen and (max-width: 769px) {
+    .popup-message__container {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 513px) {
+    .popup-message__container {
+        width: 80%;
+    }
 }

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { validate } from "react-email-validator";
 import CurrentUserContext from '../contexts/currentUserContext'
-import { validationErrors } from "../constants/errors";
+import { validationErrors } from "../constants/messages";
 
 export default function useValidation() {
     const userContext = useContext(CurrentUserContext);
@@ -53,7 +53,7 @@ export default function useValidation() {
         let value = e.target.value
         if (value === userContext.name) {
             setIsNameValid(false)
-            setNameError('Я машина, и я уничтожу тебя!')
+            setNameError(validationErrors.nameCompared)
         } else {
             checkNameValidity(e)
         }

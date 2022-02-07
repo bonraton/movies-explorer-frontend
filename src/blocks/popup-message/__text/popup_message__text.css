@@ -4,3 +4,10 @@
     text-align: center;
     align-self: center;
 }
+
+@media screen and (max-width: 513px) {
+    .popup_message__text {
+        font-size: 16px;
+        line-height: 24px;
+    }    
+}

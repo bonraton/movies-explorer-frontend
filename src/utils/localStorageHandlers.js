@@ -1,17 +1,18 @@
+import { localStorageConstants } from '../constants/constant'
+
 function clearLocalStorageData() {
-    localStorage.removeItem('jwt')
-    localStorage.removeItem('movies')
-    localStorage.removeItem('checkBox')
-    localStorage.removeItem('moviesSearchValue')
-    localStorage.removeItem('searchValue')
-    localStorage.removeItem('shortsCheckbox')
-    localStorage.removeItem('isLoggedIn')
-    localStorage.removeItem('savedSearchValue')
+    localStorage.removeItem(localStorageConstants.jwt)
+    localStorage.removeItem(localStorageConstants.movies)
+    localStorage.removeItem(localStorageConstants.shortsCheckbox)
+    localStorage.removeItem(localStorageConstants.userName)
+    localStorage.removeItem(localStorageConstants.email)
+    localStorage.removeItem(localStorageConstants.searchValue)
+    localStorage.removeItem(localStorageConstants.isLoggedIn)
 }
 
 function saveDataToLocalStorage(movies, shortMoviesChecked) {
-    localStorage.setItem('movies', JSON.stringify(movies))
-    localStorage.setItem('shortsCheckbox', shortMoviesChecked)
+    localStorage.setItem(localStorageConstants.movies, JSON.stringify(movies))
+    localStorage.setItem(localStorageConstants.shortsCheckbox, shortMoviesChecked)
   }
 
 export { clearLocalStorageData, saveDataToLocalStorage }

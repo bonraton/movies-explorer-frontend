@@ -3,7 +3,7 @@
     position: fixed;
     width: 100%;
     left: 0;
-    top: 300px;
+    top: 35%;
     opacity: 0;
     transition: .4s
 }

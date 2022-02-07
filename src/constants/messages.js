@@ -12,7 +12,7 @@ const searchFormErrors = {
       emailCompared: 'данный email уже введен',
       emailFormat: 'некорректная форма email',
       passwordFormat: 'Слишком короткий пароль',
-      addMovieError: 'Вы не можете добавить данный фильм'
+      addMovieError: 'Произошла ошибка на сервере. Вы не можете сохранить данный фильм'
   }
 
   const successeMessages = {

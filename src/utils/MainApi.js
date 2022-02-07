@@ -87,6 +87,6 @@ export async function getSavedMoviesData(userId) {
     })
     let result = await getResponseData(promise)
     return await result.data.filter((movie) => {
-        return movie.owner === userId
+        return  movie.owner === userId
     })
 }
