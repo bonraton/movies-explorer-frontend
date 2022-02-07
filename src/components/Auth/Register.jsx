@@ -63,7 +63,7 @@ export default function Register(props) {
             />
             <div className="auth-form__btn-container">
                 <button
-                    disabled={`${(!isPasswordValid || !isEmailValid || !isNameValid) ? 'disabled' : ''}`}
+                    disabled={`${(!isPasswordValid || !isEmailValid || !isNameValid || props.isDisabled) ? 'disabled' : ''}`}
                     className="auth-form__submit-btn"
                     type="submit">
                     Зарегистрироваться

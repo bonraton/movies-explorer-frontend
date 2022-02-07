@@ -24,7 +24,7 @@ export default function Profile(props) {
 
   const disableSubmitBtn =
     (!isNameValid ||
-      email === userContext.email) ? 'disabled' : ''
+      email === userContext.email || props.isDisabled) ? 'disabled' : ''
 
   return (
     <div>

@@ -7,6 +7,7 @@ function clearLocalStorageData() {
     localStorage.removeItem(localStorageConstants.userName)
     localStorage.removeItem(localStorageConstants.email)
     localStorage.removeItem(localStorageConstants.searchValue)
+    localStorage.removeItem(localStorageConstants.savedSearchValue)
     localStorage.removeItem(localStorageConstants.isLoggedIn)
 }
 

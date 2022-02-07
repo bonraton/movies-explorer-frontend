@@ -51,8 +51,8 @@ function App() {
   const [allCardsLoaded, setAllCardsLoaded] = useState(true);
   const [cardsLoading, setCardsLoading] = useState(true)
 
-  const [cardsInRow, setCardsInRow] = useState()
-  const [cardsColumns, setCardsColumns] = useState()
+  const [cardsInRow, setCardsInRow] = useState(0)
+  const [cardsColumns, setCardsColumns] = useState(0)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   //SavedMovies states
@@ -132,8 +132,8 @@ function App() {
       setCardsInRow(cardsQuanity.desktop.row);
     }
     else if (windowWidth >= resolutionBreakpoints.tabletPlus) {
-      setCardsColumns(cardsQuanity.tabletPlus.column)
-      setCardsInRow(cardsQuanity.tabletPlus.row)
+      setCardsColumns(cardsQuanity.tabletPlus.row)
+      setCardsInRow(cardsQuanity.tabletPlus.column)
     }
     else if (windowWidth >= resolutionBreakpoints.tablet) {
       setCardsColumns(cardsQuanity.tablet.column);
@@ -148,12 +148,11 @@ function App() {
   // БЕРЕМ Все карточки с API
   async function getAllMoviesData(searchValue) {
     setIsDisabledInput(true)
+    setCardsLoading(false)
     try {
-      setCardsLoading(false)
       let data = await Api.getMoviesData();
       if (!data) {
         setMoviesError(searchFormErrors.searchInternalError)
-        setIsDisabledInput(false)
       } else {
         let movies = data.map((movie) => {
           return movieObject(movie, `https://api.nomoreparties.co${movie.image.url}`)
@@ -161,11 +160,13 @@ function App() {
         let filteredMovies = filterMovies(searchValue, movies)
         setMoviesData(filteredMovies)
         saveDataToLocalStorage(filteredMovies, shortMoviesChecked)
-        setIsDisabledInput(false)
         return filteredMovies
       }
     } catch (e) {
       console.log(e)
+    } finally {
+      setIsDisabledInput(false)
+      setCardsLoading(true)
     }
   }
 
@@ -174,13 +175,9 @@ function App() {
     let filteredMovies = filterAllMovies(searchValue, movies, shortMoviesChecked)
     localStorage.setItem(localStorageConstants.searchValue, searchValue)
     if (filteredMovies.length > 0 && searchValue.length > 0) {
-      setCardsLoading(true)
-      setIsDisabledInput(false)
       return filteredMovies
     } else {
       setMoviesCards([])
-      setCardsLoading(true)
-      setIsDisabledInput(false)
       return []
     }
   }
@@ -198,8 +195,8 @@ function App() {
   function renderMovies(movies) {
     let shorts = filterShorts(movies)
     if (!shortMoviesChecked) {
-      setMoviesCards(movies.slice(0, cardsColumns * cardsInRow))
       setFilteredMoviesCards(movies)
+      setMoviesCards(movies.slice(0, cardsColumns * cardsInRow))
     } else {
       setMoviesCards(shorts);
       setFilteredMoviesCards(shorts)
@@ -208,7 +205,7 @@ function App() {
 
   // клик по ещё
   function handleLoadMoreCards() {
-    setCardsColumns(cardsColumns + 1)
+    setCardsInRow(cardsInRow + 1)
   }
 
   function hideAddBtn(movies) {
@@ -218,7 +215,6 @@ function App() {
       setAllCardsLoaded(false)
     }
   }
-
 
   //обработчик кнопки фильтраa
   function handleFilterbutton() {
@@ -231,6 +227,7 @@ function App() {
     let movies = await getAllMoviesData(searchValue)
     renderMovies(movies)
     handleMoviesErrors(movies)
+    setCardsQuanity() 
   }
 
   //Выставляем чекбокс при рендере
@@ -242,7 +239,6 @@ function App() {
       setShortMoviesCheked(false)
     }
   }
-
 
   function setInitialSavedMoviesErrors(movies) {
     const error = getInitialError(movies)
@@ -280,8 +276,7 @@ function App() {
     }
     catch (e) {
       const error = await e
-      console.log(error)
-      console.error(error.message)
+      console.log(error.message)
     }
   }
 
@@ -293,13 +288,13 @@ function App() {
       setCurrentUser(userInfo.data)
       setPopupMessage(successeMessages.profile)
       setPopupIsOpened(true)
-      setIsDisabledInput(false)
     } catch (e) {
       const error = await e
       setPopupIsOpened(true)
       setPopupMessage(error.message)
-      setIsDisabledInput(false)
       console.log(error.message)
+    } finally {
+      setIsDisabledInput(false)
     }
   }
 
@@ -358,11 +353,11 @@ function App() {
       let moviesData = await getSavedMoviesData(currentUser._id)
       setLikedMovies(moviesData)
       setSavedMoviesData(moviesData)
-      setIsDisabledInput(false)
       return moviesData
     } catch (e) {
       const error = await e
       console.log(error.message)
+    } finally {
       setIsDisabledInput(false)
     }
   }
@@ -405,16 +400,16 @@ function App() {
     try {
       let result = await register(name, email, password)
       setIsLoggedIn(true)
-      setIsDisabledInput(false)
       await handleLogin(email, password)
       setCurrentUser(result.data)
     }
     catch (e) {
       const error = await e
-      setIsDisabledInput(false)
       setIsLoggedIn(false)
       setPopupIsOpened(true)
       setPopupMessage(error.message)
+    } finally {
+      setIsDisabledInput(false)
     }
   }
 
@@ -425,13 +420,13 @@ function App() {
       setIsLoggedIn(true)
       localStorage.setItem(localStorageConstants.isLoggedIn, true)
       localStorage.setItem(localStorageConstants.jwt, result.token)
-      setIsDisabledInput(false)
       history.push(PATHS.movies)
     }
     catch (e) {
       const error = await e
       setPopupIsOpened(true)
       setPopupMessage(error.message)
+    } finally {
       setIsDisabledInput(false)
     }
   }
@@ -457,10 +452,6 @@ function App() {
     setCurrentUser({})
     setSavedMovies([])
     setMoviesData([])
-  }
-
-  function openPopup() {
-    setPopupIsOpened(true)
   }
 
   function closePopup() {
@@ -587,7 +578,7 @@ function App() {
             onClose={closePopup} />
         </Route>
         {/* 6.PROFILE  */}
-        <ProtectedRoute path={PATHS.account}>
+        <ProtectedRoute path={PATHS.account} isLoggedIn={isLoggedIn}>
           <Header btnClass="header__btn_auth" isLoggedIn={isLoggedIn} />
           <Profile
             onSubmit={updateUserInfo}

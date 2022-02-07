@@ -46,7 +46,7 @@ function Login(props) {
       />
       <div className="auth-form__btn-container">
         <button
-          disabled={`${(!isPasswordValid || !isEmailValid) ? 'disabled' : ''}`}
+          disabled={`${(!isPasswordValid || !isEmailValid || props.isDisabled) ? 'disabled' : ''}`}
           className='auth-form__submit-btn'>
           Войти
         </button>

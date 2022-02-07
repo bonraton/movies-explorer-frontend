@@ -24,8 +24,7 @@ const localStorageConstants = {
     jwt: 'jwt',
     isLoggedIn: 'isLoggedIn',
     userName: 'userName',
-    shortsCheckbox: 'shortsCheckbox:',
-    userName: 'userName',
+    shortsCheckbox: 'shortsCheckbox',
     savedSearchValue: 'savedSearchValue'
 }
 
