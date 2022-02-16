@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     align-items: stretch;
+    transition: .4s;
 }
 
 @media screen and (max-width: 769px) {

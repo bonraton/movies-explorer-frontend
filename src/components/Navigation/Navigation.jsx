@@ -1,18 +1,14 @@
-import "./Navigation.css";
 import { NavLink } from 'react-router-dom';
+import { PATHS } from '../../constants/endpoints';
 
 export default function Navigation(props) {
   return (
-    <nav className='navbar navbar_auth'>
-      <NavLink to="/movies" activeClassName="navbar__link_selected" className='navbar__link'>
-        Фильмы
+    <nav className={`navbar navbar_promo`}>
+      <NavLink onClick={props.resetError} to={PATHS.signup} activeClassName="navbar__link_selected" className={`navbar__link ${props.link}`}>
+        Регистрация
       </NavLink>
-      <NavLink to="saved-movies" activeClassName="navbar__link_selected" className='navbar__link'>
-        Сохраненные фильмы
-      </NavLink>
-      <NavLink to="/profile" className='navbar__btn'>
-        Аккаунт
-        <svg className='navbar__btn-icon'></svg>
+      <NavLink onClick={props.resetError} to={PATHS.signin} className={`navbar__btn navbar__btn_promo ${props.btn}`}>
+        Войти
       </NavLink>
     </nav>
   );

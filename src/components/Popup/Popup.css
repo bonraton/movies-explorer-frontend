@@ -1,7 +1,0 @@
-@import url('../../blocks/popup/popup.css');
-@import url('../../blocks/popup/_visible/popup_visible.css');
-@import url('../../blocks/popup/__close-btn/popup__close-btn.css');
-@import url('../../blocks/popup/__links/popup__links.css');
-@import url('../../blocks/popup/__link/popup__link.css');
-@import url('../../blocks/popup/__link/_selected/popup__link_selected.css');
-@import url('../../blocks/popup/__btn/popup__btn.css');

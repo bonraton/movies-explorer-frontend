@@ -1,0 +1,9 @@
+.popup-message {
+    visibility: hidden;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 35%;
+    opacity: 0;
+    transition: .4s
+}

@@ -1,13 +1,17 @@
 .movie__btn-container {
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
+    display: flex;
+    align-content: center;
+    justify-content: center;
     margin-right: 12px;
-    border: 1px solid white;
-    cursor: pointer;
+    align-self: flex-end;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    box-shadow: 0px 3px 6px 0px #00000017;
+    background: none;
 }
 
-.movie__btn-container::before {
+/* .movie__btn-container::before {
     background-color: green;
-}
+} */

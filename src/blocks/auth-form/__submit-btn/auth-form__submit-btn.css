@@ -21,6 +21,16 @@
     opacity: .7
 }
 
+.auth-form__submit-btn:disabled {
+    background-color: gray;
+    cursor: default;
+}
+
+.auth-form__submit-btn:disabled:hover {
+    opacity: 1;
+}
+
+
 @media screen and (max-width: 513px) {
     .auth-form__submit-btn {
         padding: 15px 68px;

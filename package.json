@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-email-validator": "^1.0.2",
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
     "sass": "^1.43.4",
@@ -17,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && scp -r ./build/* bonraton@84.201.187.210:/home/bonraton/movies-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [
