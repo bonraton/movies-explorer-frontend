@@ -29,6 +29,9 @@ npm run build
 ```
 > Build a project to `/build` folder
 
+# To do
+- Translate styles to SASS
+
 # Links.
 - [Link to website](https://MovieKirillNaruls.nomoredomains.rocks)   
 
