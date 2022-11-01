@@ -1,4 +1,4 @@
-# [Movies explorer](https://MovieKirillNaruls.nomoredomains.rocks)
+# [Movies explorer](http://178.154.247.223/)
 > Diploma project on [Yandex.Praktikum](https://practicum.yandex.ru/profile/web/) Web-development course.
 
 # Description
@@ -33,10 +33,9 @@ npm run build
 - Translate styles to SASS
 
 # Links.
-- [Link to website](https://MovieKirillNaruls.nomoredomains.rocks)   
+- [Link to website](http://178.154.247.223/)   
 
 - [Link to figma layout](https://www.figma.com/file/kmMzXyQsRJ9n9qjOq3hwrI/Diploma_Zabolotskii_Oleg?node-id=344%3A0)
 
-- [Link to API](https://api.movies.diploma.nomoredomains.rocks)   
 ---
 
